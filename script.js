@@ -83,18 +83,75 @@ var nav = document.querySelector(".nav");
 var close = document.querySelector(".nav-menu");
 
 close.addEventListener("click", () => {
-    nav.classList.remove("active");
+  nav.classList.remove("active");
+  let menuTl = gsap.timeline();
 });
 
 menu.addEventListener("click", () => {
   nav.classList.add("active");
+  gsap.from(".nav-img", {
+    opacity: 0,
+    xPercent: -100,
+    duration: 2,
+    ease : "easeIn",
+  })
+
+  gsap.from(".nav-ul li a", {
+    opacity: 0,
+    skewY : 60,
+    yPercent: -360,
+    stagger: 0.2,
+    duration: 1,
+    ease : "easeIn",
+  })
 });
 
-Shery.imageEffect(".img", {
-  style: 2, //Select Style
-  debug: true, // Debug Panel
-  config: {
-    /* Config made from debug panel */
-  },
-  preset: "./presets/wigglewobble.json",
-});
+function marquee()
+{
+  let currentScroll = 0;
+  let isScrollingDown = true;
+  let arrows = document.querySelectorAll(".arrow");
+
+  let tween = gsap.to(".marquee_part", {
+    xPercent: -100,
+    repeat: -1,
+    duration: 5,
+    ease : "linear"
+  })
+    .totalProgress(0.5);
+  gsap.set(".marquee_inner", { xPercent: -50 });
+
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > currentScroll)
+    {
+      isScrollingDown = true;
+    }
+    else
+    {
+      isScrollingDown = false;
+    }
+    gsap.to(tween, {
+      timeScale: isScrollingDown ? 1 : -1
+    });
+
+    arrows.forEach((arrow) => {
+      if (isScrollingDown)
+      {
+        arrow.classList.remove("active");
+      }
+      else
+      {
+        arrow.classList.add("active");
+        }
+    })
+   
+
+    currentScroll = window.pageYOffset;
+
+  })
+}
+
+marquee()
+
+
+
