@@ -153,5 +153,60 @@ function marquee()
 
 marquee()
 
+let skillsTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#skills",
+    start: "40% 50%",
+    end: "55% 50%",
+    scrub: 3,
+  },
+});
+
+skillsTl.to("#js", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#api", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#css", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#tw", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#git", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#html", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#discord", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#mysql", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#bs", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#ae", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+skillsTl.to("#gs", {
+  filter: "blur(0px)",
+  opacity : 1
+})
+
+
 
 
