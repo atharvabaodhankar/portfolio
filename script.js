@@ -151,62 +151,97 @@ function marquee()
   })
 }
 
+// Skills
+
+function skillsSection() {
+  let skillsTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#skills",
+      start: "40% 50%",
+      end: "50% 50%",
+      scrub: 2,
+    },
+  });
+
+  skillsTl.to("#js", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#api", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#css", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#tw", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#git", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#html", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#discord", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#mysql", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#bs", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#ae", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+  skillsTl.to("#gs", {
+    filter: "blur(0px)",
+    opacity: 1
+  })
+
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    Shery.imageEffect(".skills-img", {
+      style: 3,
+      preset: "./presets/wigglewobble.json",
+    });
+  }
+
+
+  gsap.from(".skills-left h1", {
+    opacity: 0,
+    yPercent: -100,
+    duration: 2,
+    ease: "easeIn",
+    scrollTrigger: {
+      trigger: "#skills",
+      start: "40% 50%",
+      end: "55% 50%",
+      scrub: 2,
+    }
+  })
+  gsap.from(".skills-img", {
+    scale: 0.5,
+    duration: 1.5,
+    opacity: 0,
+    ease: "easeIn",
+    scrollTrigger: {
+      trigger: "#skills",
+      start: "0 50%",
+      end: "50% 50%",
+      scrub: 2,
+    }
+  })
+}
 marquee()
-
-let skillsTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: "#skills",
-    start: "40% 50%",
-    end: "55% 50%",
-    scrub: 3,
-  },
-});
-
-skillsTl.to("#js", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#api", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#css", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#tw", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#git", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#html", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#discord", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#mysql", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#bs", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#ae", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-skillsTl.to("#gs", {
-  filter: "blur(0px)",
-  opacity : 1
-})
-
-
+skillsSection();
 
 
