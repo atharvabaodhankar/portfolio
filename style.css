@@ -478,6 +478,12 @@ p {
     .skills-right {
         width: 45%;
     }
+    .created-img {
+        height: 75px;
+    }
+    .created h1 {
+        font-size: 9vw;
+    }
 }
 
 @media screen and (max-width: 1100px) {
@@ -513,6 +519,9 @@ p {
         margin-top: 4rem;
         width: 90%;
     }
+    .created-img {
+        width: 180px;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -546,6 +555,9 @@ p {
         margin: 0 1rem;
         transform: rotate(-180deg);
         transition: all .6s cubic-bezier(0.075,0.82,0.165,1);
+    }
+    .created h1 {
+        font-size: 14vw;
     }
 }
 
@@ -595,5 +607,9 @@ p {
     }
     .skills-right span {
         font-size: 1.6rem;
+    }
+    .created-img {
+        width: 109px;
+        height: 60px;
     }
 }

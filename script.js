@@ -14,7 +14,6 @@ Shery.makeMagnet(".hero-img , .logo", {
 });
 
 var hero = document.querySelector("#hero");
-const cursor = new MouseFollower();
 
 var heroTl = gsap.timeline();
 
@@ -242,6 +241,17 @@ marquee();
 skillsSection();
 
 if (window.matchMedia("(min-width: 768px)").matches) {
+  let cursor = new MouseFollower();
+  let ele = document.querySelector("#created");
+
+  ele.addEventListener("mouseenter", () => {
+    cursor.show();
+  });
+
+  ele.addEventListener("mouseleave", () => {
+    cursor.hide();
+  });
+
   Shery.imageEffect(".created-img", {
     style: 6,
     preset: "./presets/wigglewobble.json",
@@ -254,4 +264,60 @@ if (window.matchMedia("(min-width: 768px)").matches) {
   el.addEventListener("mouseleave", () => {
     cursor.removeImg();
   });
+  
+gsap.from(".created-img", {
+  opacity: 0,
+  xPercent: -150,
+  skewY : 10,
+  duration: 2,
+  ease: "ease",
+  scrollTrigger: {
+    trigger: "#created",
+    start: "30% 50%",
+    end: "55% 50%",
+    scrub: 2,
+  },
+})
+gsap.from(".created h1", {
+  opacity: 0,
+  xPercent: -100,
+  skewY: 10,
+  delay : 1,
+  duration: 2,
+  ease: "ease",
+  scrollTrigger: {
+    trigger: "#created",
+    start: "30% 50%",
+    end: "55% 50%",
+    scrub: 2,
+  },
+})
 }
+else
+{
+  
+gsap.from(".created-img", {
+  opacity: 0,
+  skewY: 10,
+  ease: "ease",
+  scrollTrigger: {
+    trigger: "#created",
+    start: "30% 50%",
+    end: "55% 50%",
+    scrub: 2,
+  },
+})
+gsap.from(".created h1", {
+  opacity: 0,
+  y : 100,
+  skewY: 10,
+  ease: "ease",
+  scrollTrigger: {
+    trigger: "#created",
+    start: "30% 50%",
+    end: "55% 50%",
+    scrub: 2,
+  },
+})
+  }
+
