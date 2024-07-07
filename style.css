@@ -233,6 +233,7 @@ p {
     width: 50%;
     height: 100%;
 }
+
 .nav-img img {
     width: 100%;
     height: 100%;
@@ -252,7 +253,8 @@ p {
     align-items: flex-start;
     justify-content: flex-start;
 }
-.nav-ul ul li{
+
+.nav-ul ul li {
     margin: 1.6rem 0;
     overflow: hidden;
 }
@@ -272,7 +274,7 @@ p {
     position: absolute;
     width: 100%;
     transform: scaleX(0);
-    height:3px;
+    height: 3px;
     bottom: 0;
     left: 0;
     background-color: #000;
@@ -282,7 +284,7 @@ p {
 
 .nav-btn:hover::after {
     transform: scaleX(1);
-  transform-origin: bottom left;
+    transform-origin: bottom left;
 }
 
 .btn-underline {
@@ -294,7 +296,7 @@ p {
     position: absolute;
     width: 100%;
     transform: scaleX(0);
-    height:3px;
+    height: 3px;
     bottom: 0;
     left: 0;
     background-color: #000;
@@ -304,7 +306,7 @@ p {
 
 .btn-underline:hover::after {
     transform: scaleX(1);
-  transform-origin: bottom left;
+    transform-origin: bottom left;
 }
 
 .nav-btn span {
@@ -313,7 +315,7 @@ p {
 }
 
 .nav-btn:hover span:nth-child(1) {
-    transform: translateY(-100%) ;
+    transform: translateY(-100%);
 }
 
 .nav-btn:hover span:nth-child(2) {
@@ -332,47 +334,54 @@ p {
     overflow: hidden;
     user-select: none;
 }
+
 .marquee_inner {
     display: flex;
     width: fit-content;
     flex: auto;
     flex-direction: row;
 }
+
 .marquee_part {
     display: flex;
     align-items: center;
     flex-shrink: 0;
     padding: 0 0.4rem;
 }
-.arrow{
+
+.arrow {
     width: 8rem;
     height: 6rem;
     margin: 0 1rem;
     transform: rotate(-180deg);
-    transition: all .6s cubic-bezier(0.075,0.82,0.165,1);
+    transition: all .6s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.arrow img{
+
+.arrow img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.arrow.active{
+
+.arrow.active {
     transform: rotate(0deg);
-    transition: all .6s cubic-bezier(0.075,0.82,0.165,1);
+    transition: all .6s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 /* Skills */
-#skills{
+#skills {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 5rem;
+    padding: 14rem 0;
 }
-.skills-left{
+
+.skills-left {
     margin-right: 4rem;
     width: fit-content;
 }
-.skills-left h1{
+
+.skills-left h1 {
     font-size: 5vw;
     z-index: 2;
     font-weight: 400;
@@ -381,17 +390,20 @@ p {
     text-align: center;
     text-transform: uppercase;
 }
+
 .skills-img {
     width: 500px;
     height: 250px;
     margin-top: -35px;
 }
-.skills-img img{
+
+.skills-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.skills-right{
+
+.skills-right {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -399,7 +411,8 @@ p {
     flex-wrap: wrap;
     width: 40%;
 }
-.skills-right span{
+
+.skills-right span {
     display: block;
     margin: 1rem;
     color: #000;
@@ -416,7 +429,8 @@ p {
     user-select: none;
     opacity: 0;
 }
-.skills-right span::after{
+
+.skills-right span::after {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -426,44 +440,133 @@ p {
     border-radius: 3rem;
     background-color: #000;
     z-index: -1;
-    transition: all .5s cubic-bezier(0.075,0.82,0.165,1);
+    transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.skills-right span:hover::after{
+
+.skills-right span:hover::after {
     bottom: 0;
 }
-.skills-right span:hover{
+
+.skills-right span:hover {
     color: #fff;
 }
+
 /* Created */
-#created{
+#created {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10rem 0;
+    min-height: 80vh;
+    padding: 6rem 0;
 }
-.created{
+
+.created {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     user-select: none;
 }
+
 .created h1 {
     font-size: 6vw;
     font-weight: 400;
 }
-.created h1 span{
-    font-family:  ArsenicaDemibold;
+
+.created h1 span {
+    font-family: ArsenicaDemibold;
 }
-.created-img{
+
+.created-img {
     width: 250px;
     height: 100px;
     display: inline-block;
 }
-.created-img img{
+
+.created-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* AboutMe */
+#aboutme {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 90vh;
+    padding: 7rem 0;
+}
+
+.aboutme-right {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-right: 5rem;
+}
+
+.aboutme-right h1 {
+    font-size: 5vw;
+    font-weight: 400;
+    margin-bottom: -40px;
+    position: relative;
+    z-index: 2;
+}
+
+.aboutme-img {
+    width: 300px;
+    height: 400px;
+    position: relative;
+}
+.aboutme-img::after{
+    width: 100%;
+    height: 100%;
+    transform: scale(0.9);
+    position: absolute;
+    bottom: -35px;
+    right: -30px;
+    content: '';
+    border: 4px solid #535353;
+    z-index: -1;
+    transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.aboutme-img:hover::after{
+    transform: scale(0.95);
+}
+.aboutme-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.aboutme-left {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    text-align: left;
+    padding: 0 2rem;
+    width: 550px;
+    margin-top: 30px;
+    overflow: hidden;
+
+}
+
+.aboutme-left h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.aboutme-left p {
+    font-size: 1.9rem;
+}
+.aboutme-left p span {
+    display: inline-block;
+}
+.aboutme-left a{
+    margin-top: 3rem;
 }
 
 @media screen and (max-width: 1300px) {
@@ -475,12 +578,15 @@ p {
     .hero h1, .hero h2 {
         font-size: 10vw;
     }
+
     .skills-right {
         width: 45%;
     }
+
     .created-img {
         height: 75px;
     }
+
     .created h1 {
         font-size: 9vw;
     }
@@ -491,10 +597,15 @@ p {
     .skills-img {
         width: 390px;
     }
+
     .skills-right span {
         font-size: 2rem;
     }
+    .aboutme-left {
+        width: 440px;
+    }
 }
+
 @media screen and (max-width: 950px) {
     .hero h1 {
         margin-bottom: -22px;
@@ -503,39 +614,62 @@ p {
     .hero h2 {
         margin-top: -22px;
     }
+
     .nav-btn {
         --nav-btn: 8vw;
     }
-    #skills{
+
+    #skills {
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-    .skills-left{
+
+    .skills-left {
         margin-right: 0;
     }
-    .skills-right{
+
+    .skills-right {
         align-self: center;
         margin-top: 4rem;
         width: 90%;
     }
+
     .created-img {
         width: 180px;
+    }
+    #aboutme{
+        flex-direction: column;
+        align-items: center;
+    }
+    .aboutme-right{
+        margin: 0;
+    }
+    .aboutme-left {
+        width: 90%;
+        margin: 0;
+        margin-top: 8rem;
+    }
+    .aboutme-right h1 {
+        font-size: 9vw;
     }
 }
 
 @media screen and (max-width: 800px) {
-    .nav-img{
+    .nav-img {
         display: none;
     }
-    .nav-ul{
+
+    .nav-ul {
         width: 90%;
     }
+
     .skills-left h1 {
         font-size: 8vw;
         line-height: 8vw;
     }
 }
+
 @media screen and (max-width: 650px) {
     .hero-img {
         width: 37vw;
@@ -546,18 +680,24 @@ p {
         font-size: 2rem;
         margin-top: 4rem;
     }
+
     #marquee {
         font-size: 3rem;
     }
-    .arrow{
+
+    .arrow {
         width: 8rem;
         height: 4rem;
         margin: 0 1rem;
         transform: rotate(-180deg);
-        transition: all .6s cubic-bezier(0.075,0.82,0.165,1);
+        transition: all .6s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
+
     .created h1 {
         font-size: 14vw;
+    }
+    .aboutme-right h1 {
+        font-size: 8vw;
     }
 }
 
@@ -588,28 +728,52 @@ p {
     .capsule-btn:hover span:nth-child(2) {
         transform: translateY(-165%) rotate(0);
     }
+
     .nav-btn {
         --nav-btn: 14vw;
     }
+
     .skills-left {
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
     }
+
     .skills-img {
         width: 90%;
         height: 180px;
     }
+
     .skills-left h1 {
         font-size: 10vw;
         line-height: 10vw;
     }
+
     .skills-right span {
         font-size: 1.6rem;
     }
+
     .created-img {
         width: 109px;
         height: 60px;
+    }
+    .aboutme-img {
+        width: 270px;
+        height: 335px;
+    }
+    .aboutme-img::after {
+        bottom: -29px;
+        right: -25px;
+    }
+    .aboutme-left p {
+        font-size: 1.6rem;
+    }
+    .aboutme-left h1 {
+        font-size: 2.4rem;
+    }
+    .aboutme-right h1 {
+        font-size: 14vw;
+        margin-bottom: -25px;
     }
 }

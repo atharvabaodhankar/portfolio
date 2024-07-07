@@ -235,89 +235,126 @@ function skillsSection() {
   });
 }
 
+// Created
+
+function createdSection() {
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    Shery.makeMagnet(".aboutme-img" /* Element to target.*/, {
+      ease: "cubic-bezier(0.23, 1, 0.320, 1)",
+      duration: 1,
+    });
+
+    let cursor = new MouseFollower();
+    let nonHover = document.querySelectorAll(".non-hover");
+
+    nonHover.forEach((ele) => {
+      ele.addEventListener("mouseenter", () => {
+        cursor.hide();
+      });
+      ele.addEventListener("mouseleave", () => {
+        cursor.show();
+      });
+    });
+
+    Shery.imageEffect(".created-img", {
+      style: 6,
+      preset: "./presets/wigglewobble.json",
+    });
+    let el = document.querySelector(".created");
+    el.addEventListener("mouseenter", () => {
+      cursor.setImg("./photo1720331840.jpeg");
+    });
+
+    el.addEventListener("mouseleave", () => {
+      cursor.removeImg();
+    });
+
+    gsap.from(".created-img", {
+      opacity: 0,
+      xPercent: -150,
+      skewY: 10,
+      duration: 2,
+      ease: "ease",
+      scrollTrigger: {
+        trigger: "#created",
+        start: "30% 50%",
+        end: "55% 50%",
+        scrub: 2,
+      },
+    });
+    gsap.from(".created h1", {
+      opacity: 0,
+      xPercent: -100,
+      skewY: 10,
+      delay: 1,
+      duration: 2,
+      ease: "ease",
+      scrollTrigger: {
+        trigger: "#created",
+        start: "30% 50%",
+        end: "55% 50%",
+        scrub: 2,
+      },
+    });
+  } else {
+    gsap.from(".created-img", {
+      opacity: 0,
+      skewY: 10,
+      ease: "ease",
+      scrollTrigger: {
+        trigger: "#created",
+        start: "30% 50%",
+        end: "55% 50%",
+        scrub: 2,
+      },
+    });
+    gsap.from(".created h1", {
+      opacity: 0,
+      y: 100,
+      skewY: 10,
+      ease: "ease",
+      scrollTrigger: {
+        trigger: "#created",
+        start: "30% 50%",
+        end: "55% 50%",
+        scrub: 2,
+      },
+    });
+  }
+}
+
 // Function Calls
 
 marquee();
 skillsSection();
+createdSection();
 
-if (window.matchMedia("(min-width: 768px)").matches) {
-  let cursor = new MouseFollower();
-  let ele = document.querySelector("#created");
-
-  ele.addEventListener("mouseenter", () => {
-    cursor.show();
-  });
-
-  ele.addEventListener("mouseleave", () => {
-    cursor.hide();
-  });
-
-  Shery.imageEffect(".created-img", {
-    style: 6,
-    preset: "./presets/wigglewobble.json",
-  });
-  let el = document.querySelector(".created");
-  el.addEventListener("mouseenter", () => {
-    cursor.setImg("./hero-img.jpg");
-  });
-
-  el.addEventListener("mouseleave", () => {
-    cursor.removeImg();
-  });
-  
-gsap.from(".created-img", {
-  opacity: 0,
-  xPercent: -150,
-  skewY : 10,
-  duration: 2,
-  ease: "ease",
+let aboutMeTl = gsap.timeline({
   scrollTrigger: {
-    trigger: "#created",
-    start: "30% 50%",
-    end: "55% 50%",
+    trigger: "#aboutme",
+    start: "10% 50%",
+    end: "50% 50%",
     scrub: 2,
   },
-})
-gsap.from(".created h1", {
+});
+
+aboutMeTl.from(".aboutmeimg-outer", {
   opacity: 0,
-  xPercent: -100,
-  skewY: 10,
-  delay : 1,
-  duration: 2,
+  y: 100,
   ease: "ease",
-  scrollTrigger: {
-    trigger: "#created",
-    start: "30% 50%",
-    end: "55% 50%",
-    scrub: 2,
-  },
-})
-}
-else
-{
-  
-gsap.from(".created-img", {
+});
+
+aboutMeTl.from(".aboutme-right h1", {
   opacity: 0,
-  skewY: 10,
+  x: -100,
   ease: "ease",
-  scrollTrigger: {
-    trigger: "#created",
-    start: "30% 50%",
-    end: "55% 50%",
-    scrub: 2,
-  },
-})
-gsap.from(".created h1", {
+});
+
+aboutMeTl.from(".aboutme-left-text-h1 ,.aboutme-left-text-p span", {
   opacity: 0,
-  y : 100,
-  skewY: 10,
+  x: 100,
+  stagger: 0.2,
+  skewX : 40,
   ease: "ease",
-  scrollTrigger: {
-    trigger: "#created",
-    start: "30% 50%",
-    end: "55% 50%",
-    scrub: 2,
-  },
-})
-  }
+});
 
