@@ -323,38 +323,98 @@ function createdSection() {
   }
 }
 
+// Aboutme
+
+function aboutmeSection() {
+  let aboutMeTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#aboutme",
+      start: "10% 50%",
+      end: "50% 50%",
+      scrub: 2,
+    },
+  });
+  
+  aboutMeTl.from(".aboutmeimg-outer", {
+    opacity: 0,
+    y: 100,
+    ease: "ease",
+  });
+  
+  aboutMeTl.from(".aboutme-right h1", {
+    opacity: 0,
+    x: -100,
+    ease: "ease",
+  });
+  
+  aboutMeTl.from(".aboutme-left-text-h1 ,.aboutme-left-text-p span", {
+    opacity: 0,
+    x: 100,
+    stagger: 0.2,
+    skewX : 40,
+    ease: "ease",
+  });
+  
+}
+
+// Swiper
+
+function swiperSection() {
+  const swiper = new Swiper(".swiper", {
+    direction: "horizontal",
+    loop: false,
+    speed: 1500,
+    slidesPerView: 4,
+    spaceBetween: 60,
+    parallax: true,
+    centeredSlides: true,
+    effect: "coverflow",
+    coverflowEffect: {
+      rotate: 40,
+      slideShadows: true
+    },
+    autoplay: {
+      delay: 2000,
+      pauseOnMouseEnter: true
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 60
+      },
+      600: {
+        slidesPerView: 2,
+        spaceBetween: 60
+      },
+      1000: {
+        slidesPerView: 3,
+        spaceBetween: 60
+      },
+      1400: {
+        slidesPerView: 4,
+        spaceBetween: 60
+      },
+      2300: {
+        slidesPerView: 5,
+        spaceBetween: 60
+      },
+      2900: {
+        slidesPerView: 6,
+        spaceBetween: 60
+      }
+    }
+  });
+  
+}
+
 // Function Calls
 
 marquee();
 skillsSection();
 createdSection();
+swiperSection();
 
-let aboutMeTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: "#aboutme",
-    start: "10% 50%",
-    end: "50% 50%",
-    scrub: 2,
-  },
-});
 
-aboutMeTl.from(".aboutmeimg-outer", {
-  opacity: 0,
-  y: 100,
-  ease: "ease",
-});
 
-aboutMeTl.from(".aboutme-right h1", {
-  opacity: 0,
-  x: -100,
-  ease: "ease",
-});
 
-aboutMeTl.from(".aboutme-left-text-h1 ,.aboutme-left-text-p span", {
-  opacity: 0,
-  x: 100,
-  stagger: 0.2,
-  skewX : 40,
-  ease: "ease",
-});
 

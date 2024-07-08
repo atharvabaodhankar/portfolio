@@ -520,7 +520,8 @@ p {
     height: 400px;
     position: relative;
 }
-.aboutme-img::after{
+
+.aboutme-img::after {
     width: 100%;
     height: 100%;
     transform: scale(0.9);
@@ -532,9 +533,11 @@ p {
     z-index: -1;
     transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.aboutme-img:hover::after{
+
+.aboutme-img:hover::after {
     transform: scale(0.95);
 }
+
 .aboutme-img img {
     width: 100%;
     height: 100%;
@@ -562,12 +565,226 @@ p {
 .aboutme-left p {
     font-size: 1.9rem;
 }
+
 .aboutme-left p span {
     display: inline-block;
 }
-.aboutme-left a{
+
+.aboutme-left a {
     margin-top: 3rem;
 }
+
+/* Projects */
+#projects {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 6rem 0;
+}
+
+.projects-header h1{
+    font-size: 5vw;
+    font-weight: 400;
+    margin-bottom: 4rem;
+}
+
+article {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sectionWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+    padding: 50px 20px;
+    overflow: visible;
+}
+
+
+.swiper .swiper-wrapper {
+    align-items: center;
+}
+
+.swiper .swiper-slide {
+    position: relative;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: rgba(102, 102, 102, 0.8);
+    border-radius: 7px;
+    padding: 10px;
+    margin: 0;
+    cursor: grab;
+    user-select: none;
+    text-wrap: pretty;
+    transition: all 0.3s ease;
+}
+
+.swiper .swiper-slide:hover {
+    background: linear-gradient(135deg,
+    #b82323 /* White */,
+    #fff2f2, /* Light gray with slight tint of first color */
+    #f7e6e6, /* Lighter gray with slightly more tint */
+    #f0dddd, /* Even lighter gray with more tint */
+    #e9d7d7, /* Lightest gray with full tint */
+    #971616, /* Slightly darker gray */
+    #d6cacb, /* Gray with a hint of the second color */
+    #c9c4c4, /* Darker gray with more of the second color */
+    #bcc8c8, /* Even darker gray with more of the second color */
+    #01dada, /* Gray with a hint of the blue end */
+    
+    )
+}
+
+
+
+.swiper .swiper-slide .cardPopout {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 7px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.swiper .swiper-slide img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 25px;
+    border-radius: 5px;
+}
+
+.swiper .swiper-slide h2 {
+    font-size: 2.2rem;
+    line-height: 110%;
+    margin: 0 0 7px 0;
+    color: white;
+    border-radius: 100%;
+}
+
+.swiper .swiper-slide h4 {
+    font-size: 110%;
+    line-height: 120%;
+    font-weight: 700;
+    margin: 0 0 13px 0;
+    color: #bbb;
+    font-style: italic;
+}
+
+.swiper .swiper-slide figcaption {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0 0 20px 0;
+    padding-left: 20px;
+    border-left: 1px solid white;
+}
+
+.swiper .swiper-slide figcaption p {
+    color: #999;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.swiper .swiper-slide a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+    text-decoration: none;
+    overflow: hidden;
+    z-index: 1;
+    font-size: 1.9rem;
+    transition: all 0.6s ease !important;
+}
+
+.swiper .swiper-slide a:hover {
+    color: black;
+    transition: all 0.6s ease;
+}
+
+.swiper .swiper-slide a::after {
+    position: absolute;
+    right: 100%;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    content: "";
+    z-index: -1;
+    transition: all 0.6s ease;
+}
+
+.swiper .swiper-slide a:hover::after {
+    right: 0;
+    transition: all 0.6s ease;
+}
+
+@media (max-height: 550px) {
+    .swiper .swiper-slide figcaption p {
+        -webkit-line-clamp: 2;
+    }
+}
+
+@media (max-height: 490px) {
+    .swiper .swiper-slide figcaption p {
+        -webkit-line-clamp: 1;
+    }
+}
+
+@media (max-height: 460px) {
+    .swiper .swiper-slide figcaption p {
+        display: none;
+    }
+
+    .swiper .swiper-slide h4 {
+        margin: 0;
+    }
+}
+
+@media (max-height: 430px) {
+    .swiper .swiper-wrapper {
+        position: relative;
+        bottom: 6px;
+    }
+}
+
+@media (max-width: 750px) {
+    .swiper .parallax-bg {
+        width: 320%;
+    }
+}
+
+/* Projects end*/
 
 @media screen and (max-width: 1300px) {
     .hero-img {
@@ -601,6 +818,7 @@ p {
     .skills-right span {
         font-size: 2rem;
     }
+
     .aboutme-left {
         width: 440px;
     }
@@ -638,18 +856,22 @@ p {
     .created-img {
         width: 180px;
     }
-    #aboutme{
+
+    #aboutme {
         flex-direction: column;
         align-items: center;
     }
-    .aboutme-right{
+
+    .aboutme-right {
         margin: 0;
     }
+
     .aboutme-left {
         width: 90%;
         margin: 0;
         margin-top: 8rem;
     }
+
     .aboutme-right h1 {
         font-size: 9vw;
     }
@@ -696,6 +918,7 @@ p {
     .created h1 {
         font-size: 14vw;
     }
+
     .aboutme-right h1 {
         font-size: 8vw;
     }
@@ -758,20 +981,25 @@ p {
         width: 109px;
         height: 60px;
     }
+
     .aboutme-img {
         width: 270px;
         height: 335px;
     }
+
     .aboutme-img::after {
         bottom: -29px;
         right: -25px;
     }
+
     .aboutme-left p {
         font-size: 1.6rem;
     }
+
     .aboutme-left h1 {
         font-size: 2.4rem;
     }
+
     .aboutme-right h1 {
         font-size: 14vw;
         margin-bottom: -25px;
