@@ -807,6 +807,9 @@ article {
     .created h1 {
         font-size: 9vw;
     }
+    .projects-header h1 {
+        font-size: 9vw;
+    }
 }
 
 @media screen and (max-width: 1100px) {
@@ -1003,5 +1006,8 @@ article {
     .aboutme-right h1 {
         font-size: 14vw;
         margin-bottom: -25px;
+    }
+    .projects-header h1 {
+        font-size: 14vw;
     }
 }
