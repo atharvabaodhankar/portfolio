@@ -414,7 +414,6 @@ function swiperSection() {
       start: "0% 80%",
       end: "40% 50%",
       scrub: 2,
-      markers : true
     },
   })
   gsap.from(".project-article", {
