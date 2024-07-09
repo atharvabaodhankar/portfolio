@@ -357,7 +357,7 @@ function aboutmeSection() {
   
 }
 
-// Swiper
+// Swiper and Proejct section
 
 function swiperSection() {
   const swiper = new Swiper(".swiper", {
@@ -404,8 +404,34 @@ function swiperSection() {
       }
     }
   });
+  gsap.from(".projects-header h1", {
+    opacity: 0,
+    y: 100,
+    stagger: 0.2,
+    ease: "ease",
+    scrollTrigger: {
+      trigger: ".projects-header",
+      start: "0% 80%",
+      end: "40% 50%",
+      scrub: 2,
+      markers : true
+    },
+  })
+  gsap.from(".project-article", {
+    opacity: 0,
+    y: 100,
+    stagger: 0.2,
+    ease: "ease",
+    scrollTrigger: {
+      trigger: ".project-article",
+      start: "0% 80%",
+      end: "40% 50%",
+      scrub: 2,
+    },
+  })
   
 }
+
 
 // Function Calls
 
@@ -413,6 +439,8 @@ marquee();
 skillsSection();
 createdSection();
 swiperSection();
+aboutmeSection();
+projectSection();
 
 
 
