@@ -334,27 +334,26 @@ function aboutmeSection() {
       scrub: 2,
     },
   });
-  
+
   aboutMeTl.from(".aboutmeimg-outer", {
     opacity: 0,
     y: 100,
     ease: "ease",
   });
-  
+
   aboutMeTl.from(".aboutme-right h1", {
     opacity: 0,
     x: -100,
     ease: "ease",
   });
-  
+
   aboutMeTl.from(".aboutme-left-text-h1 ,.aboutme-left-text-p span", {
     opacity: 0,
     x: 100,
     stagger: 0.2,
-    skewX : 40,
+    skewX: 40,
     ease: "ease",
   });
-  
 }
 
 // Swiper and Proejct section
@@ -371,38 +370,38 @@ function swiperSection() {
     effect: "coverflow",
     coverflowEffect: {
       rotate: 40,
-      slideShadows: true
+      slideShadows: true,
     },
     autoplay: {
       delay: 2000,
-      pauseOnMouseEnter: true
+      pauseOnMouseEnter: true,
     },
     breakpoints: {
       0: {
         slidesPerView: 1,
-        spaceBetween: 60
+        spaceBetween: 60,
       },
       600: {
         slidesPerView: 2,
-        spaceBetween: 60
+        spaceBetween: 60,
       },
       1000: {
         slidesPerView: 3,
-        spaceBetween: 60
+        spaceBetween: 60,
       },
       1400: {
         slidesPerView: 4,
-        spaceBetween: 60
+        spaceBetween: 60,
       },
       2300: {
         slidesPerView: 5,
-        spaceBetween: 60
+        spaceBetween: 60,
       },
       2900: {
         slidesPerView: 6,
-        spaceBetween: 60
-      }
-    }
+        spaceBetween: 60,
+      },
+    },
   });
   gsap.from(".projects-header h1", {
     opacity: 0,
@@ -415,7 +414,7 @@ function swiperSection() {
       end: "40% 50%",
       scrub: 2,
     },
-  })
+  });
   gsap.from(".project-article", {
     opacity: 0,
     y: 100,
@@ -427,10 +426,13 @@ function swiperSection() {
       end: "40% 50%",
       scrub: 2,
     },
-  })
-  
+  });
 }
 
+function projectSection() {
+  //animate ".box" from an opacity of 0 to an opacity of 0.5
+  gsap.fromTo(".work-img img", {   y: '-7vw' }, { y: "7vw ", scrollTrigger: { trigger: ".work-img", scrub: 2 } });
+}
 
 // Function Calls
 
@@ -440,8 +442,3 @@ createdSection();
 swiperSection();
 aboutmeSection();
 projectSection();
-
-
-
-
-

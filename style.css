@@ -17,6 +17,10 @@
     font-family: ArsenicaDemibold;
     src: url(./ArsenicaTrial-Demibold.woff2);
 }
+@font-face {
+    font-family: FontStyleNew;
+    src: url(./e9849a0be596192c822daa1765c81db9.woff2);
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 
@@ -679,6 +683,9 @@ article {
     font-size: 2.2rem;
     line-height: 110%;
     margin: 0 0 7px 0;
+    font-family: FontStyleNew;
+    font-weight: 400;
+    letter-spacing: 1px;
     color: white;
     border-radius: 100%;
 }
@@ -707,6 +714,7 @@ article {
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 4;
+    line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -749,42 +757,59 @@ article {
     transition: all 0.6s ease;
 }
 
-@media (max-height: 550px) {
-    .swiper .swiper-slide figcaption p {
-        -webkit-line-clamp: 2;
-    }
-}
-
-@media (max-height: 490px) {
-    .swiper .swiper-slide figcaption p {
-        -webkit-line-clamp: 1;
-    }
-}
-
-@media (max-height: 460px) {
-    .swiper .swiper-slide figcaption p {
-        display: none;
-    }
-
-    .swiper .swiper-slide h4 {
-        margin: 0;
-    }
-}
-
-@media (max-height: 430px) {
-    .swiper .swiper-wrapper {
-        position: relative;
-        bottom: 6px;
-    }
-}
-
-@media (max-width: 750px) {
-    .swiper .parallax-bg {
-        width: 320%;
-    }
-}
 
 /* Projects end*/
+
+/* Work */
+#work{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7rem 0;
+}
+.work-left{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 0 4rem;
+    margin-right: 10rem;
+}
+.work-left h2{
+    font-size: 2.5rem;
+    font-family: FontStyleNew;
+    font-weight: 400;
+}
+.work-left h1{
+    font-size: 5vw;
+    font-weight: 400;
+    margin: 2rem 0;
+}
+.work-left ul{
+    list-style: none;
+    font-size: 3rem;
+    margin-top: 5rem;
+}
+.work-left ul li{
+    font-family: FontStyleNew;
+    margin: 1rem 0;
+}
+.work-img{
+    width: 400px;
+    height: 500px;
+    transform: rotate(8deg);
+    margin-left: 5rem;
+    position: relative;
+    overflow: hidden;
+}
+.work-img img{
+    width: 100%;
+    top: -7vw;
+    left: 0;
+    height: calc(100% + 2vw);
+    object-fit: cover;
+    position: absolute;
+}
 
 @media screen and (max-width: 1300px) {
     .hero-img {
@@ -824,6 +849,13 @@ article {
 
     .aboutme-left {
         width: 440px;
+    }
+    .work-img {
+        width: 290px;
+        height: 420px;
+    }
+    .work-left {
+        margin-right: 0;
     }
 }
 
@@ -878,6 +910,19 @@ article {
     .aboutme-right h1 {
         font-size: 9vw;
     }
+    #work{
+        flex-direction: column;
+    }
+    
+    .work-img{
+        width: 400px;
+        height: 500px;
+        margin: 0;
+        margin-top: 7rem;
+    }
+    .work-left h1 {
+        font-size: 8vw;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -895,6 +940,11 @@ article {
     }
 }
 
+@media (max-width: 750px) {
+    .swiper .parallax-bg {
+        width: 320%;
+    }
+}
 @media screen and (max-width: 650px) {
     .hero-img {
         width: 37vw;
@@ -924,6 +974,10 @@ article {
 
     .aboutme-right h1 {
         font-size: 8vw;
+    }
+    .work-img {
+        width: 350px;
+        height: 85vw;
     }
 }
 
@@ -1010,4 +1064,49 @@ article {
     .projects-header h1 {
         font-size: 14vw;
     }
+    .work-left h1 {
+        font-size: 14vw;
+    }
+    .swiper .swiper-slide figcaption p {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+    .work-left ul {
+        margin-top: 2rem;
+        font-size: 2rem;
+    }
+    .work-img {
+        width: 290px;
+        height: 85vw;
+    }
 }
+
+@media (max-height: 490px) {
+    .swiper .swiper-slide figcaption p {
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+    }
+}
+
+@media (max-height: 460px) {
+    .swiper .swiper-slide figcaption p {
+        display: none;
+    }
+
+    .swiper .swiper-slide h4 {
+        margin: 0;
+    }
+}
+
+@media (max-height: 430px) {
+    .swiper .swiper-wrapper {
+        position: relative;
+        bottom: 6px;
+    }
+}
+@media (max-height: 350px) {
+    .work-img {
+        width: 250px;
+    }
+}
+
