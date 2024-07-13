@@ -430,8 +430,51 @@ function swiperSection() {
 }
 
 function projectSection() {
-  //animate ".box" from an opacity of 0 to an opacity of 0.5
-  gsap.fromTo(".work-img img", {   y: '-7vw' }, { y: "7vw ", scrollTrigger: { trigger: ".work-img", scrub: 2 } });
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    gsap.fromTo(
+      ".work-img img",
+      { y: "-7vw" },
+      { y: "7vw ", scrollTrigger: { trigger: ".work-img", scrub: 2 } }
+    );
+  } else {
+    gsap.from(".work-img img", {
+      opacity: 0,
+      rotate : 10,
+      y: 10,
+      skewY  : -10,
+      ease : "ease",
+      scrollTrigger: {
+        trigger: ".work-img",
+        start: "0% 50%",
+        scrub: 2,
+      },
+    });
+  }
+  gsap.from(".work-left h2 , .work-left h1", {
+    opacity: 0,
+    stagger : 0.1,
+    y: 100,
+    skewX : 10,
+    ease : "ease",
+    scrollTrigger: {
+      trigger: ".work-left",
+      start: "0% 80%",
+      end: "20% 80%",
+      scrub: 2,
+    },
+  });
+  gsap.from(".work-left ul li", {
+    opacity: 0,
+    stagger : 0.1,
+    x: 100,
+    ease : "ease",
+    scrollTrigger: {
+      trigger: ".work-left",
+      start: "0% 50%",
+      end: "20% 50%",
+      scrub: 2,
+    },
+  });
 }
 
 // Function Calls

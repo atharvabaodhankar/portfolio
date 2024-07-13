@@ -923,6 +923,9 @@ article {
     .work-left h1 {
         font-size: 8vw;
     }
+    #skills {
+        padding: 7rem 0;
+    }
 }
 
 @media screen and (max-width: 800px) {
