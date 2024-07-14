@@ -17,6 +17,7 @@
     font-family: ArsenicaDemibold;
     src: url(./ArsenicaTrial-Demibold.woff2);
 }
+
 @font-face {
     font-family: FontStyleNew;
     src: url(./e9849a0be596192c822daa1765c81db9.woff2);
@@ -114,24 +115,19 @@ p {
     margin-top: 4rem;
 }
 
-#sample {
-    height: 100vh;
-    background-color: pink;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .capsule-btn {
-    font-size: 3rem;
     border-radius: 3rem;
-    height: 65px;
+    width: 180px;
+    display: block;
     padding: 0 3rem;
     overflow: hidden;
-    border: 2px solid #000;
-    color: #000;
+    border: 2px solid #fff;
+    color: #fff;
     position: relative;
     z-index: 1;
+    margin-top: 3rem;
+    font-size: 2rem;
+    height: 55px;
 }
 
 .capsule-btn::after {
@@ -141,7 +137,7 @@ p {
     left: 0;
     width: 0%;
     height: 100%;
-    background: #000;
+    background: #fff;
     transition: all .5s ease;
     z-index: -1;
 }
@@ -151,7 +147,7 @@ p {
 }
 
 .capsule-btn:hover span {
-    color: #fff;
+    color: #000;
 }
 
 .capsule-btn span {
@@ -161,17 +157,13 @@ p {
     z-index: 1;
 }
 
-.capsule-btn span:nth-child(2) {
-    transform: rotate(-10deg);
-}
 
 .capsule-btn:hover span:nth-child(1) {
-    transform: translateY(-150%) rotate(10deg);
-    opacity: 0;
+    transform: translateY(-165%);
 }
 
 .capsule-btn:hover span:nth-child(2) {
-    transform: translateY(-150%) rotate(0);
+    transform: translateY(-165%);
 }
 
 .navbar {
@@ -588,7 +580,7 @@ p {
     padding: 6rem 0;
 }
 
-.projects-header h1{
+.projects-header h1 {
     font-size: 5vw;
     font-weight: 400;
     margin-bottom: 4rem;
@@ -643,18 +635,29 @@ article {
 
 .swiper .swiper-slide:hover {
     background: linear-gradient(135deg,
-    #b82323 /* White */,
-    #fff2f2, /* Light gray with slight tint of first color */
-    #f7e6e6, /* Lighter gray with slightly more tint */
-    #f0dddd, /* Even lighter gray with more tint */
-    #e9d7d7, /* Lightest gray with full tint */
-    #971616, /* Slightly darker gray */
-    #d6cacb, /* Gray with a hint of the second color */
-    #c9c4c4, /* Darker gray with more of the second color */
-    #bcc8c8, /* Even darker gray with more of the second color */
-    #01dada, /* Gray with a hint of the blue end */
-    
-    )
+            #b82323
+            /* White */
+            ,
+            #fff2f2,
+            /* Light gray with slight tint of first color */
+            #f7e6e6,
+            /* Lighter gray with slightly more tint */
+            #f0dddd,
+            /* Even lighter gray with more tint */
+            #e9d7d7,
+            /* Lightest gray with full tint */
+            #971616,
+            /* Slightly darker gray */
+            #d6cacb,
+            /* Gray with a hint of the second color */
+            #c9c4c4,
+            /* Darker gray with more of the second color */
+            #bcc8c8,
+            /* Even darker gray with more of the second color */
+            #01dada,
+            /* Gray with a hint of the blue end */
+
+        )
 }
 
 
@@ -761,40 +764,47 @@ article {
 /* Projects end*/
 
 /* Work */
-#work{
+#work {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 7rem 0;
 }
-.work-left{
+
+.work-left {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
     margin: 0 4rem;
     margin-right: 10rem;
+    overflow: hidden;
 }
-.work-left h2{
+
+.work-left h2 {
     font-size: 2.5rem;
     font-family: FontStyleNew;
     font-weight: 400;
 }
-.work-left h1{
+
+.work-left h1 {
     font-size: 5vw;
     font-weight: 400;
     margin: 2rem 0;
 }
-.work-left ul{
+
+.work-left ul {
     list-style: none;
     font-size: 3rem;
     margin-top: 5rem;
 }
-.work-left ul li{
+
+.work-left ul li {
     font-family: FontStyleNew;
     margin: 1rem 0;
 }
-.work-img{
+
+.work-img {
     width: 400px;
     height: 500px;
     transform: rotate(8deg);
@@ -802,13 +812,207 @@ article {
     position: relative;
     overflow: hidden;
 }
-.work-img img{
+
+.work-img img {
     width: 100%;
     top: -7vw;
     left: 0;
     height: calc(100% + 2vw);
     object-fit: cover;
     position: absolute;
+}
+
+.social-media-list {
+    position: relative;
+    font-size: 22px;
+    text-align: center;
+    width: 70%;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.social-media-list li a {
+    color: #fff;
+}
+
+
+.social-media-list li {
+    position: relative;
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    margin: 10px 3px;
+    line-height: 60px;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #ffffff;
+    color: rgb(27, 27, 27);
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    box-shadow: 0 0 0 1px #020202;
+}
+
+.social-media-list a {
+    text-decoration: none;
+}
+
+
+.social-media-list li:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 0 1px #020202;
+    transition: all .2s ease-in-out;
+}
+
+.social-media-list li:hover {
+    background-color: rgb(27, 27, 27);
+    box-shadow: 0 0 0 1px #ffff;
+
+}
+
+.social-media-list a:hover li i {
+    z-index: 15;
+    color: #fff;
+}
+
+.social-media-list li:hover:after {
+    opacity: 1;
+    transform: scale(1.12);
+    transition-timing-function: cubic-bezier(0.37, 0.74, 0.15, 1.65);
+}
+
+.social-media-list li:hover a {
+    color: #000;
+}
+
+/* Footer */
+#footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5rem 0 0 0;
+}
+
+#footer svg {
+    margin-bottom: -0.5rem;
+}
+
+.footer {
+    width: 100%;
+    background-color: #000;
+    padding: 0 5rem;
+    padding-bottom: 10rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.footer-left {
+    color: #fff;
+    width: 500px;
+}
+
+.footer-left h1 {
+    font-family: FontStyleNew;
+    font-size: 8rem;
+}
+
+.footer-left p {
+    font-size: 1.9rem;
+    margin: 2rem 0;
+}
+
+.footer-right {
+    width: auto;
+}
+
+.footer-right ul {
+    list-style: none;
+}
+
+.footer-right ul li {
+    margin: 1rem 0;
+}
+
+.footer-right ul li a {
+    color: #fff;
+    font-size: 3rem;
+}
+
+.footer-right .nav-btn {
+    height: auto;
+    display: inline-block;
+}
+
+.footer-right .nav-btn::after {
+    background-color: #fff;
+    border-radius: 1rem;
+}
+
+.footer-logo {
+    height: 30vw;
+    width: 100%;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.footer-text {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.footer-text h2 {
+    position: absolute;
+    color: #fff;
+    font-size: 21vw;
+}
+
+.footer-text h2:nth-child(1) {
+    color: transparent;
+    -webkit-text-stroke: 2px #faf6f6;
+}
+
+.footer-text h2:nth-child(2) {
+    color: #ffff;
+    animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+    0%, 100% {
+        clip-path: polygon(0% 45%,
+                16% 44%,
+                33% 50%,
+                54% 60%,
+                70% 61%,
+                84% 59%,
+                100% 52%,
+                100% 100%,
+                0% 100%);
+    }
+
+    50% {
+        clip-path: polygon(0% 60%,
+                15% 65%,
+                34% 66%,
+                51% 62%,
+                67% 50%,
+                84% 45%,
+                100% 46%,
+                100% 100%,
+                0% 100%);
+    }
 }
 
 @media screen and (max-width: 1300px) {
@@ -832,8 +1036,13 @@ article {
     .created h1 {
         font-size: 9vw;
     }
+
     .projects-header h1 {
         font-size: 9vw;
+    }
+
+    .footer {
+        padding-top: 10rem;
     }
 }
 
@@ -850,10 +1059,12 @@ article {
     .aboutme-left {
         width: 440px;
     }
+
     .work-img {
         width: 290px;
         height: 420px;
     }
+
     .work-left {
         margin-right: 0;
     }
@@ -910,21 +1121,39 @@ article {
     .aboutme-right h1 {
         font-size: 9vw;
     }
-    #work{
+
+    #work {
         flex-direction: column;
     }
-    
-    .work-img{
+
+    .work-img {
         width: 400px;
         height: 500px;
         margin: 0;
         margin-top: 7rem;
     }
+
     .work-left h1 {
         font-size: 8vw;
     }
+
     #skills {
         padding: 7rem 0;
+    }
+
+    .footer-right ul li a {
+        font-size: 2.4rem;
+    }
+
+    .footer {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 3rem;
+        padding-top: 8rem;
+    }
+
+    .footer-right {
+        margin-top: 4rem;
     }
 }
 
@@ -948,6 +1177,7 @@ article {
         width: 320%;
     }
 }
+
 @media screen and (max-width: 650px) {
     .hero-img {
         width: 37vw;
@@ -978,9 +1208,18 @@ article {
     .aboutme-right h1 {
         font-size: 8vw;
     }
+
     .work-img {
         width: 350px;
         height: 85vw;
+    }
+
+    .footer-left {
+        width: 100%;
+    }
+    .footer-logo {
+        padding-top: 5rem;
+        height: 40vw;
     }
 }
 
@@ -999,18 +1238,6 @@ article {
         height: 71vw;
     }
 
-    .capsule-btn {
-        font-size: 2rem;
-        height: 55px;
-    }
-
-    .capsule-btn:hover span:nth-child(1) {
-        transform: translateY(-165%) rotate(10deg);
-    }
-
-    .capsule-btn:hover span:nth-child(2) {
-        transform: translateY(-165%) rotate(0);
-    }
 
     .nav-btn {
         --nav-btn: 14vw;
@@ -1064,23 +1291,40 @@ article {
         font-size: 14vw;
         margin-bottom: -25px;
     }
+
     .projects-header h1 {
         font-size: 14vw;
     }
+
     .work-left h1 {
         font-size: 14vw;
     }
+
     .swiper .swiper-slide figcaption p {
         -webkit-line-clamp: 2;
         line-clamp: 2;
     }
+
     .work-left ul {
         margin-top: 2rem;
         font-size: 2rem;
     }
+
     .work-img {
         width: 290px;
         height: 85vw;
+    }
+
+    .social-media-list {
+        width: 100%;
+        padding: 0;
+    }
+
+    .footer-left h1 {
+        font-size: 5rem;
+    }
+    .work-left {
+        margin: 0;
     }
 }
 
@@ -1107,9 +1351,12 @@ article {
         bottom: 6px;
     }
 }
+
 @media (max-height: 350px) {
     .work-img {
         width: 250px;
     }
+    .social-media-list {
+        width: 90%;
+    }
 }
-

@@ -445,7 +445,8 @@ function projectSection() {
       ease : "ease",
       scrollTrigger: {
         trigger: ".work-img",
-        start: "0% 50%",
+        start: "0% 60%",
+        end: "20% 60%",
         scrub: 2,
       },
     });
@@ -459,7 +460,7 @@ function projectSection() {
     scrollTrigger: {
       trigger: ".work-left",
       start: "0% 80%",
-      end: "20% 80%",
+      end: "30% 80%",
       scrub: 2,
     },
   });
@@ -477,6 +478,33 @@ function projectSection() {
   });
 }
 
+function footerSection() {
+  gsap.from(".footer-left , .footer-right ", {
+    yPercent: -100,
+    opacity: 0.7,
+    scrollTrigger: {
+      scroller: "body",
+      trigger: "#footer",
+      scrub: 3,
+      start: "top 80%",
+      end: "40% 80%",
+    },
+  });
+
+  gsap.from(".footer-text h2", {  
+    y: -100,
+    opacity: 0,
+    skewY : 10,
+    ease: "ease",
+    scrollTrigger: {
+      scroller: "body",
+      trigger: ".footer",
+      scrub: 3,
+      start: "40% 80%",
+      end: "60% 80%",
+    },
+  });
+}
 // Function Calls
 
 marquee();
@@ -485,3 +513,4 @@ createdSection();
 swiperSection();
 aboutmeSection();
 projectSection();
+footerSection();
