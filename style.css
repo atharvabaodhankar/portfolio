@@ -965,6 +965,7 @@ article {
     width: 100%;
     overflow: hidden;
     background-color: #000;
+    user-select: none;
 }
 
 .footer-text {
@@ -1169,6 +1170,9 @@ article {
     .skills-left h1 {
         font-size: 8vw;
         line-height: 8vw;
+    }
+    .footer-text h2 {
+        font-family: FontStyleNew;
     }
 }
 
