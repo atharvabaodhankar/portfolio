@@ -1173,6 +1173,7 @@ article {
     }
     .footer-text h2 {
         font-family: FontStyleNew;
+        font-weight: 100;
     }
 }
 
