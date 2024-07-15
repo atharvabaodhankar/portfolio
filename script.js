@@ -8,48 +8,6 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-Shery.makeMagnet(".hero-img , .logo", {
-  ease: "cubic-bezier(0.23, 1, 0.320, 1)",
-  duration: 1,
-});
-
-var hero = document.querySelector("#hero");
-
-var heroTl = gsap.timeline();
-
-heroTl.from(
-  ".hero-img",
-  {
-    height: 0,
-    scale: 0.8,
-    ease: "elastic",
-    duration: 3,
-  },
-  "HeroH1H2"
-);
-heroTl.from(
-  ".hero h1",
-  {
-    skewY: -10,
-    delay: 1,
-    opacity: 0,
-  },
-  "HeroH1H2"
-);
-heroTl.from(
-  ".hero h2",
-  {
-    skewY: -10,
-    delay: 1.3,
-    opacity: 0,
-  },
-  "HeroH1H2"
-);
-heroTl.from(".hero p", {
-  y: 20,
-  opacity: 0,
-});
-
 // Navbar
 
 const menu = document.querySelector(".menu");
@@ -93,7 +51,7 @@ menu.addEventListener("click", () => {
     opacity: 0,
     xPercent: -100,
     duration: 2,
-    ease: "easeIn",
+    ease: "power4.inOut",
   });
 
   gsap.from(".nav-ul li a", {
@@ -439,10 +397,10 @@ function projectSection() {
   } else {
     gsap.from(".work-img img", {
       opacity: 0,
-      rotate : 10,
+      rotate: 10,
       y: 10,
-      skewY  : -10,
-      ease : "ease",
+      skewY: -10,
+      ease: "ease",
       scrollTrigger: {
         trigger: ".work-img",
         start: "0% 60%",
@@ -453,10 +411,10 @@ function projectSection() {
   }
   gsap.from(".work-left h2 , .work-left h1", {
     opacity: 0,
-    stagger : 0.1,
+    stagger: 0.1,
     y: 100,
-    skewX : 10,
-    ease : "ease",
+    skewX: 10,
+    ease: "ease",
     scrollTrigger: {
       trigger: ".work-left",
       start: "0% 80%",
@@ -466,9 +424,9 @@ function projectSection() {
   });
   gsap.from(".work-left ul li", {
     opacity: 0,
-    stagger : 0.1,
+    stagger: 0.1,
     x: 100,
-    ease : "ease",
+    ease: "ease",
     scrollTrigger: {
       trigger: ".work-left",
       start: "0% 50%",
@@ -491,10 +449,10 @@ function footerSection() {
     },
   });
 
-  gsap.from(".footer-text h2", {  
+  gsap.from(".footer-text h2", {
     y: -100,
     opacity: 0,
-    skewY : 10,
+    skewY: 10,
     ease: "ease",
     scrollTrigger: {
       scroller: "body",
@@ -505,6 +463,108 @@ function footerSection() {
     },
   });
 }
+
+function loaderSection() {
+  function loadingAnimation() {
+    const tl = gsap.timeline();
+    tl.from(".loading", {
+      yPercent: 100,
+      ease: "power3.inOut",
+      duration: 1,
+    });
+  }
+  const entranceAnimation = () => {
+    const tl = gsap.timeline();
+    tl.to(".loading", {
+      yPercent: -100,
+      duration: 1.25,
+      ease: "power4.inOut",
+    });
+  };
+  const images = document.querySelectorAll("img");
+  let loadedCount = 0;
+  const minPreloaderTime = 3000;
+  let allImagesLoaded = false;
+
+  const handleImageLoad = () => {
+    loadedCount++;
+    if (loadedCount === images.length) {
+      allImagesLoaded = true;
+      checkAndRunEntranceAnimation();
+    }
+  };
+
+  const checkAndRunEntranceAnimation = () => {
+    if (allImagesLoaded && Date.now() - startTime >= minPreloaderTime) {
+      entranceAnimation();
+    }
+  };
+
+  loadingAnimation();
+
+  const startTime = Date.now();
+
+  setTimeout(() => {
+    if (allImagesLoaded) {
+      entranceAnimation();
+      gsap.to("#loader", { yPercent: -100, backgroundColor: "#EDECE7", duration: 1.5,  ease: "power4.inOut", });
+      setTimeout(heroLoad, 500);
+    }
+  }, minPreloaderTime);
+
+  for (const image of images) {
+    if (image.complete) {
+      handleImageLoad();
+    } else {
+      image.addEventListener("load", handleImageLoad);
+    }
+  }
+}
+
+function heroLoad() {
+  Shery.makeMagnet(".hero-img , .logo", {
+    ease: "cubic-bezier(0.23, 1, 0.320, 1)",
+    duration: 1,
+  });
+
+  var hero = document.querySelector("#hero");
+
+  var heroTl = gsap.timeline();
+
+  heroTl.from(
+    ".hero-img",
+    {
+      height: 0,
+      scale: 0.8,
+      ease: "elastic",
+      duration: 3,
+    },
+    "HeroH1H2"
+  );
+  heroTl.from(
+    ".hero h1",
+    {
+      skewY: -10,
+      delay: 1,
+      opacity: 0,
+    },
+    "HeroH1H2"
+  );
+  heroTl.from(
+    ".hero h2",
+    {
+      skewY: -10,
+      delay: 1.3,
+      opacity: 0,
+    },
+    "HeroH1H2"
+  );
+  heroTl.from(".hero p", {
+    y: 20,
+    opacity: 0,
+  });
+}
+
 // Function Calls
 
 marquee();
@@ -514,3 +574,4 @@ swiperSection();
 aboutmeSection();
 projectSection();
 footerSection();
+loaderSection();
