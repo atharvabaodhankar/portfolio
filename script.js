@@ -472,6 +472,21 @@ function loaderSection() {
       ease: "power3.inOut",
       duration: 1,
     });
+    tl.from(".loading-text h1 span", {
+      duration: 0.6,
+        delay: -0.3,
+        y: 130,
+        skewY: 10,
+        stagger: 0.4,
+        ease: "Power3.easeOut"
+    },'loader-same')
+    tl.from(".loader-box", {
+      rotate: -360,
+      scale : 4,
+      duration: 2,
+      ease: "ease",
+    },'loader-same')
+    
   }
   const entranceAnimation = () => {
     const tl = gsap.timeline();
@@ -483,7 +498,7 @@ function loaderSection() {
   };
   const images = document.querySelectorAll("img");
   let loadedCount = 0;
-  const minPreloaderTime = 3000;
+  const minPreloaderTime = 2000;
   let allImagesLoaded = false;
 
   const handleImageLoad = () => {
@@ -575,3 +590,4 @@ aboutmeSection();
 projectSection();
 footerSection();
 loaderSection();
+

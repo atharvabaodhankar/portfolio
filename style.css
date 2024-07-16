@@ -78,11 +78,104 @@ p {
     background-color: #000;
     overflow: hidden;
     z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .loading img {
     width: 350px;
     margin: 10% 40%;
-  }
+}
+.loading-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.loading-text{
+    font-size: 4rem;
+    color: #fff;
+    z-index: 2;
+}
+.loading-text h1{
+    display: inline-block;
+    overflow: hidden;
+}
+.loading-text h1 span{
+    display: inline-block;
+    font-family: FontStyleNew ;
+}
+
+@keyframes loader {
+	0%, 10%, 100% {
+		width: 80px;
+		height: 80px;
+	}
+	65% {
+		width: 150px;
+		height: 150px;
+	}
+}
+@keyframes loaderBlock {
+	0%, 30% { 
+		transform: rotate(0);
+	}
+	55% {
+		background-color: #fffefe;
+	}
+	100% {
+		transform: rotate(90deg);
+
+	}
+}
+@keyframes loaderBlockInverse {
+	0%, 20% { 
+		transform: rotate(0);
+	}
+	55% {
+		background-color: #ffffff;
+	}
+	100% {
+		transform: rotate(-90deg);
+	}
+}
+.loader-box {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	width: 80px;
+	height: 80px;
+	transform: translate(-50%, -50%) rotate(45deg) translate3d(0,0,0);
+	animation: loader 1.2s infinite ease-in-out;
+	span {
+		position: absolute;
+		display: block;
+		width: 40px;
+		height: 40px;
+		background-color: #747474;
+		animation: loaderBlock 1.2s infinite ease-in-out both;
+
+		&:nth-child(1) {
+			top: 0;
+			left: 0;
+		}
+		&:nth-child(2) {
+			top: 0;
+			right: 0;
+			animation: loaderBlockInverse 1.2s infinite ease-in-out both;
+		}
+		&:nth-child(3) {
+			bottom: 0;
+			left: 0;
+			animation: loaderBlockInverse 1.2s infinite ease-in-out both;
+		}
+		&:nth-child(4) {
+			bottom: 0;
+			right: 0;
+		}
+	}
+}
+
 /* Hero */
 
 #hero {
@@ -1091,6 +1184,9 @@ article {
     .work-left {
         margin-right: 0;
     }
+    .loading-text {
+        font-size: 3rem;
+    }
 }
 
 @media screen and (max-width: 950px) {
@@ -1196,6 +1292,14 @@ article {
     .footer-text h2 {
         font-family: FontStyleNew;
         font-weight: 100;
+    }
+    .loading-text {
+        font-size: 4vw;
+    }
+    .loading-text {
+        font-size: 7vw;
+        display: flex;
+        flex-direction: column;
     }
 }
 
