@@ -220,7 +220,7 @@ function createdSection() {
     });
     let el = document.querySelector(".created");
     el.addEventListener("mouseenter", () => {
-      cursor.setImg("./design-img.jpeg");
+      cursor.setImg("./imgs/design-img.jpeg");
     });
 
     el.addEventListener("mouseleave", () => {

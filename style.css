@@ -1,19 +1,4 @@
 @font-face {
-    font-family: ArsenicaLight;
-    src: url(./ArsenicaTrial-Light.woff2);
-}
-
-@font-face {
-    font-family: ArsenicaRegular;
-    src: url(./ArsenicaTrial-Regular.woff2);
-}
-
-@font-face {
-    font-family: ArsenicaMedium;
-    src: url(./ArsenicaTrial-Medium.woff2);
-}
-
-@font-face {
     font-family: ArsenicaDemibold;
     src: url(./ArsenicaTrial-Demibold.woff2);
 }
