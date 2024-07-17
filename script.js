@@ -397,8 +397,8 @@ function projectSection() {
   if (window.matchMedia("(min-width: 768px)").matches) {
     gsap.fromTo(
       ".work-img img",
-      { y: "-7vw" },
-      { y: "7vw ", scrollTrigger: { trigger: ".work-img", scrub: 2 } }
+      { y: "-9vw" },
+      { y: "9vw ", scrollTrigger: { trigger: ".work-img", scrub: 3 } }
     );
   } else {
     gsap.from(".work-img img", {
