@@ -220,7 +220,7 @@ function createdSection() {
     });
     let el = document.querySelector(".created");
     el.addEventListener("mouseenter", () => {
-      cursor.setImg("./photo1720331840.jpeg");
+      cursor.setImg("./design-img.jpeg");
     });
 
     el.addEventListener("mouseleave", () => {
@@ -472,21 +472,35 @@ function loaderSection() {
       ease: "power3.inOut",
       duration: 1,
     });
-    tl.from(".loading-text h1 span", {
-      duration: 0.6,
+    tl.from(
+      ".loading-text h1 span",
+      {
+        duration: 0.6,
         delay: -0.3,
         y: 130,
         skewY: 10,
         stagger: 0.4,
-        ease: "Power3.easeOut"
-    },'loader-same')
-    tl.from(".loader-box", {
-      rotate: -360,
-      scale : 4,
-      duration: 2,
-      ease: "ease",
-    },'loader-same')
-    
+        ease: "Power3.easeOut",
+      },
+      "loader-same"
+    );
+    tl.from(
+      ".loader-box",
+      {
+        rotate: -360,
+        scale: 4,
+        duration: 2,
+        ease: "ease",
+      },
+      "loader-same"
+    ).call(deleteOP, null, "+=0.2"); // Call deleteOP after animations with a slight delay
+
+    function deleteOP() {
+      const loadingElement = document.querySelector(".loading");
+      if (loadingElement) {
+        loadingElement.remove();
+      }
+    }
   }
   const entranceAnimation = () => {
     const tl = gsap.timeline();
@@ -522,7 +536,12 @@ function loaderSection() {
   setTimeout(() => {
     if (allImagesLoaded) {
       entranceAnimation();
-      gsap.to("#loader", { yPercent: -100, backgroundColor: "#EDECE7", duration: 1.5,  ease: "power4.inOut", });
+      gsap.to("#loader", {
+        yPercent: -100,
+        backgroundColor: "#EDECE7",
+        duration: 1.5,
+        ease: "power4.inOut",
+      });
       setTimeout(heroLoad, 500);
     }
   }, minPreloaderTime);
@@ -582,6 +601,7 @@ function heroLoad() {
 
 // Function Calls
 
+loaderSection();
 marquee();
 skillsSection();
 createdSection();
@@ -589,5 +609,3 @@ swiperSection();
 aboutmeSection();
 projectSection();
 footerSection();
-loaderSection();
-
