@@ -38,11 +38,17 @@ window.addEventListener("scroll", () => {
   lastScroll = currentScroll;
 });
 var nav = document.querySelector(".nav");
-var close = document.querySelector(".nav-menu");
+var closeBtn = document.querySelector(".nav-menu");
+var navBtns = document.querySelectorAll(".nav-btn");
 
-close.addEventListener("click", () => {
+navBtns.forEach((ele) => {
+  ele.addEventListener("click", () => {
+    nav.classList.remove("active");
+  });
+})
+
+closeBtn.addEventListener("click", () => {
   nav.classList.remove("active");
-  let menuTl = gsap.timeline();
 });
 
 menu.addEventListener("click", () => {
