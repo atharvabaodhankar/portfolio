@@ -503,8 +503,10 @@ function loaderSection() {
 
     function deleteOP() {
       const loadingElement = document.querySelector(".loading");
+      const loader = document.querySelector("#loader");
       if (loadingElement) {
         loadingElement.remove();
+        loader.remove();
       }
     }
   }
