@@ -45,7 +45,7 @@ navBtns.forEach((ele) => {
   ele.addEventListener("click", () => {
     nav.classList.remove("active");
   });
-})
+});
 
 closeBtn.addEventListener("click", () => {
   nav.classList.remove("active");
@@ -472,7 +472,18 @@ function footerSection() {
 
 function loaderSection() {
   function loadingAnimation() {
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setTimeout(() => {
+          const loadingElement = document.querySelector(".loading");
+          const loader = document.querySelector("#loader");
+          if (loadingElement) {
+            loadingElement.remove();
+            loader.remove();
+          }
+        }, 500);
+      },
+    });
     tl.from(".loading", {
       yPercent: 100,
       ease: "power3.inOut",
@@ -499,16 +510,7 @@ function loaderSection() {
         ease: "ease",
       },
       "loader-same"
-    ).call(deleteOP, null, "+=0.2"); // Call deleteOP after animations with a slight delay
-
-    function deleteOP() {
-      const loadingElement = document.querySelector(".loading");
-      const loader = document.querySelector("#loader");
-      if (loadingElement) {
-        loadingElement.remove();
-        loader.remove();
-      }
-    }
+    ); // Call deleteOP after animations with a slight delay
   }
   const entranceAnimation = () => {
     const tl = gsap.timeline();
