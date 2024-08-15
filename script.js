@@ -208,29 +208,32 @@ function createdSection() {
       duration: 1,
     });
 
-    let cursor = new MouseFollower();
+    Ferro.mouseFollower(1, "12px", true, ["h1", ".nav-btn" , ".hero-hover"], 3);
     let nonHover = document.querySelectorAll(".non-hover");
 
-    nonHover.forEach((ele) => {
-      ele.addEventListener("mouseenter", () => {
-        cursor.hide();
-      });
-      ele.addEventListener("mouseleave", () => {
-        cursor.show();
-      });
-    });
+    // nonHover.forEach((ele) => {
+    //   ele.addEventListener("mouseenter", () => {
+    //     cursor.hide();
+    //   });
+    //   ele.addEventListener("mouseleave", () => {
+    //     cursor.show();
+    //   });
+    // });
 
     Shery.imageEffect(".created-img", {
       style: 6,
       preset: "./presets/wigglewobble.json",
     });
+    var cursor;
     let el = document.querySelector(".created");
     el.addEventListener("mouseenter", () => {
+      cursor = new MouseFollower();
       cursor.setImg("./imgs/design-img.jpeg");
     });
 
     el.addEventListener("mouseleave", () => {
       cursor.removeImg();
+      cursor.hide();
     });
 
     gsap.from(".created-img", {
@@ -609,6 +612,24 @@ function heroLoad() {
   });
 }
 
+// Ferro Js
+
+function ferroSection() {
+  gsap.to(".ferro-c1", {
+    xPercent: -300,
+    ease: "none",
+    scrollTrigger: {
+      scroller: "body",
+      trigger: "#ferro",
+      scrub: true,
+      start: "top top",
+      end: "+200% top",
+      markers: true,
+      pin: true,
+    },
+  })
+}
+
 // Function Calls
 
 loaderSection();
@@ -619,3 +640,4 @@ swiperSection();
 aboutmeSection();
 projectSection();
 footerSection();
+ferroSection();
