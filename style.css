@@ -718,7 +718,7 @@ p {
 
 .ferro-container {
     width: 100vw;
-    height: 900px;
+    height: 600px;
     display: flex;
     overflow-x: hidden;
 }
