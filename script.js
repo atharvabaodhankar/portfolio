@@ -208,7 +208,7 @@ function createdSection() {
       duration: 1,
     });
 
-    Ferro.mouseFollower(1, "12px", true, ["h1", ".nav-btn" , ".hero-hover"], 3);
+    Ferro.mouseFollower(1, "12px", true, ["h1", ".nav-btn" , ".hero-hover" , ".ferro-c1 p",".ferro-btn"], 3);
     let nonHover = document.querySelectorAll(".non-hover");
 
     // nonHover.forEach((ele) => {
@@ -226,15 +226,15 @@ function createdSection() {
     });
     var cursor;
     let el = document.querySelector(".created");
-    el.addEventListener("mouseenter", () => {
-      cursor = new MouseFollower();
-      cursor.setImg("./imgs/design-img.jpeg");
-    });
+    // el.addEventListener("mouseenter", () => {
+    //   cursor = new MouseFollower();
+    //   cursor.setImg("./imgs/design-img.jpeg");
+    // });
 
-    el.addEventListener("mouseleave", () => {
-      cursor.removeImg();
-      cursor.hide();
-    });
+    // el.addEventListener("mouseleave", () => {
+    //   cursor.removeImg();
+    //   cursor.hide();
+    // });
 
     gsap.from(".created-img", {
       opacity: 0,
@@ -616,19 +616,21 @@ function heroLoad() {
 
 function ferroSection() {
   gsap.to(".ferro-c1", {
-    xPercent: -300,
+    xPercent: -200,
     ease: "none",
     scrollTrigger: {
       scroller: "body",
       trigger: "#ferro",
       scrub: true,
-      start: "top top",
-      end: "+200% top",
-      markers: true,
+      start: "top -20%",
+      end: "+300% -20%",
       pin: true,
     },
   })
+  Ferro.button(".ferro-btn", 0.5, "ease");
+  
 }
+
 
 // Function Calls
 

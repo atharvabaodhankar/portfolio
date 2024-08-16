@@ -47,8 +47,9 @@ p {
     font-size: 1.6rem;
     line-height: 2.5rem;
 }
+
 /* Loader */
-#loader{
+#loader {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -56,7 +57,8 @@ p {
     overflow: hidden;
     z-index: 7;
 }
-.loading{
+
+.loading {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -67,98 +69,115 @@ p {
     align-items: center;
     justify-content: center;
 }
+
 .loading img {
     width: 350px;
     margin: 10% 40%;
 }
+
 .loading-main {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.loading-text{
+
+.loading-text {
     font-size: 4rem;
     color: #fff;
     z-index: 2;
 }
-.loading-text h1{
+
+.loading-text h1 {
     display: inline-block;
     overflow: hidden;
 }
-.loading-text h1 span{
+
+.loading-text h1 span {
     display: inline-block;
-    font-family: FontStyleNew ;
+    font-family: FontStyleNew;
 }
 
 @keyframes loader {
-	0%, 10%, 100% {
-		width: 80px;
-		height: 80px;
-	}
-	65% {
-		width: 150px;
-		height: 150px;
-	}
+    0%, 10%, 100% {
+        width: 80px;
+        height: 80px;
+    }
+
+    65% {
+        width: 150px;
+        height: 150px;
+    }
 }
+
 @keyframes loaderBlock {
-	0%, 30% { 
-		transform: rotate(0);
-	}
-	55% {
-		background-color: #fffefe;
-	}
-	100% {
-		transform: rotate(90deg);
+    0%, 30% {
+        transform: rotate(0);
+    }
 
-	}
+    55% {
+        background-color: #fffefe;
+    }
+
+    100% {
+        transform: rotate(90deg);
+
+    }
 }
+
 @keyframes loaderBlockInverse {
-	0%, 20% { 
-		transform: rotate(0);
-	}
-	55% {
-		background-color: #ffffff;
-	}
-	100% {
-		transform: rotate(-90deg);
-	}
-}
-.loader-box {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 80px;
-	height: 80px;
-	transform: translate(-50%, -50%) rotate(45deg) translate3d(0,0,0);
-	animation: loader 1.2s infinite ease-in-out;
-	span {
-		position: absolute;
-		display: block;
-		width: 40px;
-		height: 40px;
-		background-color: #747474;
-		animation: loaderBlock 1.2s infinite ease-in-out both;
+    0%, 20% {
+        transform: rotate(0);
+    }
 
-		&:nth-child(1) {
-			top: 0;
-			left: 0;
-		}
-		&:nth-child(2) {
-			top: 0;
-			right: 0;
-			animation: loaderBlockInverse 1.2s infinite ease-in-out both;
-		}
-		&:nth-child(3) {
-			bottom: 0;
-			left: 0;
-			animation: loaderBlockInverse 1.2s infinite ease-in-out both;
-		}
-		&:nth-child(4) {
-			bottom: 0;
-			right: 0;
-		}
-	}
+    55% {
+        background-color: #ffffff;
+    }
+
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
+.loader-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%) rotate(45deg) translate3d(0, 0, 0);
+    animation: loader 1.2s infinite ease-in-out;
+
+    span {
+        position: absolute;
+        display: block;
+        width: 40px;
+        height: 40px;
+        background-color: #747474;
+        animation: loaderBlock 1.2s infinite ease-in-out both;
+
+        &:nth-child(1) {
+            top: 0;
+            left: 0;
+        }
+
+        &:nth-child(2) {
+            top: 0;
+            right: 0;
+            animation: loaderBlockInverse 1.2s infinite ease-in-out both;
+        }
+
+        &:nth-child(3) {
+            bottom: 0;
+            left: 0;
+            animation: loaderBlockInverse 1.2s infinite ease-in-out both;
+        }
+
+        &:nth-child(4) {
+            bottom: 0;
+            right: 0;
+        }
+    }
 }
 
 /* Hero */
@@ -669,8 +688,9 @@ p {
 .aboutme-left a {
     margin-top: 3rem;
 }
+
 /* FerroJs */
-#ferro{
+#ferro {
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -679,31 +699,108 @@ p {
     width: 100%;
     padding: 6rem 0;
 }
-.ferro-header{
+
+.ferro-header {
     width: 100%;
     text-align: center;
     font-family: Arimo;
 }
+
 .ferro-header h1 {
     font-size: 5vw;
     font-weight: 400;
     margin-bottom: 4rem;
+    display: inline-block;
+    font-family: ArsenicaSemibold;
 }
+
 .ferro-container {
     width: 100vw;
-    height: 500px;
-    border: 2px solid #000;
+    height: 900px;
     display: flex;
     overflow-x: hidden;
-  }
-  
-  .ferro-c1 {
+}
+
+.ferro-c1 {
     width: 100vw;
     height: 100%;
     flex-shrink: 0;
-  }
-  
+    padding: 3rem 4rem;
+}
 
+.ferro-section-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ferro-section-1-text {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.ferro-img {
+    width: 50%;
+    height: auto;
+    margin-bottom: 4rem;
+}
+
+.ferro-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0.1);
+    transform: translateZ(100px);
+    transform-style: preserve-3d;
+}
+
+.ferro-h1 {
+    font-size: 9vw;
+    font-family: FontStyleNew;
+    letter-spacing: 1px;
+}
+
+.ferro-h2 {
+    font-size: 3rem;
+}
+
+.ferro-c1 p {
+    font-size: 2vw;
+    line-height: 2.5vw;
+    width: 80%;
+}
+
+.ferro-section-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 4rem;
+}
+
+.ferro-btn {
+    font-size: 3em;
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+.ferro-section-3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ferro-section-3 .ferro-section-1-text{
+    padding: 4rem 0;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.ferro-section-3 h1{
+    font-size: 7vw !important;
+}
 
 /* Projects */
 #projects {
@@ -1204,6 +1301,7 @@ article {
     .work-left {
         margin-right: 0;
     }
+
     .loading-text {
         font-size: 3rem;
     }
@@ -1294,6 +1392,26 @@ article {
     .footer-right {
         margin-top: 4rem;
     }
+
+    .ferro-h1 {
+        font-size: 15vw;
+    }
+
+    .ferro-header h1 {
+        font-size: 9vw;
+    }
+
+    .ferro-c1 p {
+        font-size: 2rem;
+        line-height: 3rem;
+    }
+
+    .ferro-img {
+        width: 70%;
+    }
+    .ferro-section-3 h1{
+        font-size: 9vw !important;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -1309,13 +1427,16 @@ article {
         font-size: 8vw;
         line-height: 8vw;
     }
+
     .footer-text h2 {
         font-family: FontStyleNew;
         font-weight: 100;
     }
+
     .loading-text {
         font-size: 4vw;
     }
+
     .loading-text {
         font-size: 7vw;
         display: flex;
@@ -1368,9 +1489,14 @@ article {
     .footer-left {
         width: 100%;
     }
+
     .footer-logo {
         padding-top: 5rem;
         height: 40vw;
+    }
+
+    .ferro-header h1 {
+        font-size: 8vw;
     }
 }
 
@@ -1474,8 +1600,13 @@ article {
     .footer-left h1 {
         font-size: 5rem;
     }
+
     .work-left {
         margin: 0;
+    }
+
+    .ferro-c1 p {
+        width: 90%;
     }
 }
 
@@ -1507,6 +1638,7 @@ article {
     .work-img {
         width: 250px;
     }
+
     .social-media-list {
         width: 90%;
     }
