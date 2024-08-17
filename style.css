@@ -786,8 +786,13 @@ p {
 
 .ferro-btn {
     font-size: 3em;
+    font-family: FontStyleNew;
     color: #000;
     border-bottom: 2px solid #000;
+    span{
+    font-family: FontStyleNew;
+
+    }
 }
 .ferro-section-3{
     display: flex;

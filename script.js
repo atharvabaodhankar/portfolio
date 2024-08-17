@@ -622,11 +622,12 @@ function ferroSection() {
       scroller: "body",
       trigger: "#ferro",
       scrub: true,
-      start: "top -20%",
-      end: "+300% -20%",
+      start: "top top",
+      end: "+300% top",
       pin: true,
     },
   })
+
   Ferro.button(".ferro-btn", 0.5, "ease");
   
 }
