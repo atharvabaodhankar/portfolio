@@ -125,26 +125,16 @@ function skillsSection() {
     filter: "blur(0px)",
     opacity: 1,
   });
-  skillsTl.to("#api", {
+  skillsTl.to("#react", {
     filter: "blur(0px)",
     opacity: 1,
   });
-  skillsTl.to("#css", {
-    filter: "blur(0px)",
-    opacity: 1,
-  });
+
   skillsTl.to("#tw", {
     filter: "blur(0px)",
     opacity: 1,
   });
-  skillsTl.to("#git", {
-    filter: "blur(0px)",
-    opacity: 1,
-  });
-  skillsTl.to("#html", {
-    filter: "blur(0px)",
-    opacity: 1,
-  });
+
   skillsTl.to("#discord", {
     filter: "blur(0px)",
     opacity: 1,
@@ -165,6 +155,40 @@ function skillsSection() {
     filter: "blur(0px)",
     opacity: 1,
   });
+  skillsTl.to("#solidity", {
+    filter: "blur(0px)", 
+    opacity: 1,
+  });
+
+  skillsTl.to("#node", {
+    filter: "blur(0px)",
+    opacity: 1,
+  });
+  skillsTl.to("#express", {
+    filter: "blur(0px)",
+    opacity: 1,
+  });
+  skillsTl.to("#python", {
+    filter: "blur(0px)",
+    opacity: 1,
+  });
+  skillsTl.to("#jquery", {
+    filter: "blur(0px)",
+    opacity: 1,
+  });
+  skillsTl.to("#supabase", {
+    filter: "blur(0px)",
+    opacity: 1,
+  });
+  skillsTl.to("#firebase", {
+    filter: "blur(0px)",
+    opacity: 1,
+  });
+  skillsTl.to("#php", {
+    filter: "blur(0px)",
+    opacity: 1,
+  });
+
 
   if (window.matchMedia("(min-width: 768px)").matches) {
     Shery.imageEffect(".skills-img", {
