@@ -142,11 +142,11 @@ export class VanillaTilt {
   private reset() {
     this.onMouseEnter();
     this.event = {
-      clientX: this.left + (this.settings.startX + this.settings.max) / (2 * this.settings.max) * this.width,
-      clientY: this.top + (this.settings.startY + this.settings.max) / (2 * this.settings.max) * this.height
+      clientX: this.left + ((this.settings.startX || 0) + (this.settings.max || 15)) / (2 * (this.settings.max || 15)) * this.width,
+      clientY: this.top + ((this.settings.startY || 0) + (this.settings.max || 15)) / (2 * (this.settings.max || 15)) * this.height
     } as MouseEvent;
 
-    const scale = this.settings.scale;
+    const scale = this.settings.scale || 1;
     this.settings.scale = 1;
     this.update();
     this.settings.scale = scale;
@@ -161,9 +161,10 @@ export class VanillaTilt {
     x = Math.min(Math.max(x, 0), 1);
     y = Math.min(Math.max(y, 0), 1);
 
+    const max = this.settings.max || 15;
     return {
-      tiltX: (this.reverse * (this.settings.max - x * this.settings.max * 2)).toFixed(2),
-      tiltY: (this.reverse * (y * this.settings.max * 2 - this.settings.max)).toFixed(2),
+      tiltX: (this.reverse * (max - x * max * 2)).toFixed(2),
+      tiltY: (this.reverse * (y * max * 2 - max)).toFixed(2),
       percentageX: x * 100,
       percentageY: y * 100,
       angle: Math.atan2(this.event.clientX - (this.left + this.width / 2), -(this.event.clientY - (this.top + this.height / 2))) * (180 / Math.PI)
@@ -181,20 +182,24 @@ export class VanillaTilt {
   private update() {
     const values = this.getValues();
 
+    const perspective = this.settings.perspective || 1000;
+    const scale = this.settings.scale || 1;
     this.element.style.transform = 
-      "perspective(" + this.settings.perspective + "px) " +
+      "perspective(" + perspective + "px) " +
       "rotateX(" + (this.settings.axis === "x" ? 0 : values.tiltY) + "deg) " +
       "rotateY(" + (this.settings.axis === "y" ? 0 : values.tiltX) + "deg) " +
-      "scale3d(" + this.settings.scale + ", " + this.settings.scale + ", " + this.settings.scale + ")";
+      "scale3d(" + scale + ", " + scale + ", " + scale + ")";
 
     this.updateCall = null;
   }
 
   private setTransition() {
-    this.element.style.transition = this.settings.speed + "ms " + this.settings.easing;
+    const speed = this.settings.speed || 300;
+    const easing = this.settings.easing || "cubic-bezier(.03,.98,.52,.99)";
+    this.element.style.transition = speed + "ms " + easing;
     setTimeout(() => {
       this.element.style.transition = "";
-    }, this.settings.speed);
+    }, speed);
   }
 }
 
