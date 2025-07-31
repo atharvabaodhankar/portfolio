@@ -1,7 +1,33 @@
 // VanillaTilt implementation for Next.js
+interface TiltSettings {
+  reverse?: boolean;
+  max?: number;
+  startX?: number;
+  startY?: number;
+  perspective?: number;
+  easing?: string;
+  scale?: number;
+  speed?: number;
+  transition?: boolean;
+  axis?: string | null;
+  glare?: boolean;
+  'max-glare'?: number;
+  'glare-prerender'?: boolean;
+  'full-page-listening'?: boolean;
+  'mouse-event-element'?: HTMLElement | null;
+  reset?: boolean;
+  'reset-to-start'?: boolean;
+  gyroscope?: boolean;
+  gyroscopeMinAngleX?: number;
+  gyroscopeMaxAngleX?: number;
+  gyroscopeMinAngleY?: number;
+  gyroscopeMaxAngleY?: number;
+  gyroscopeSamples?: number;
+}
+
 export class VanillaTilt {
   private element: HTMLElement;
-  private settings: any;
+  private settings: TiltSettings;
   private reverse: number;
   private width: number = 0;
   private height: number = 0;
@@ -10,7 +36,7 @@ export class VanillaTilt {
   private updateCall: number | null = null;
   private event: MouseEvent | null = null;
 
-  constructor(element: HTMLElement, settings: any = {}) {
+  constructor(element: HTMLElement, settings: TiltSettings = {}) {
     if (!(element instanceof Node)) {
       throw new Error("Can't initialize VanillaTilt because element is not a Node.");
     }
@@ -24,7 +50,7 @@ export class VanillaTilt {
     this.reset();
   }
 
-  static init(elements: NodeListOf<Element> | Element[] | Element, settings: any = {}) {
+  static init(elements: NodeListOf<Element> | Element[] | Element, settings: TiltSettings = {}) {
     if (elements instanceof Node) {
       elements = [elements];
     }
@@ -32,15 +58,15 @@ export class VanillaTilt {
       elements = Array.from(elements);
     }
     if (Array.isArray(elements)) {
-      elements.forEach((element: any) => {
+      elements.forEach((element: Element) => {
         if (!('vanillaTilt' in element)) {
-          element.vanillaTilt = new VanillaTilt(element, settings);
+          (element as HTMLElement & { vanillaTilt: VanillaTilt }).vanillaTilt = new VanillaTilt(element as HTMLElement, settings);
         }
       });
     }
   }
 
-  private extendSettings(settings: any) {
+  private extendSettings(settings: TiltSettings) {
     const defaultSettings = {
       reverse: false,
       max: 15,
@@ -67,19 +93,19 @@ export class VanillaTilt {
       gyroscopeSamples: 10
     };
 
-    const newSettings: any = {};
+    const newSettings: TiltSettings = {};
     for (const property in defaultSettings) {
       if (property in settings) {
-        newSettings[property] = settings[property];
+        (newSettings as Record<string, unknown>)[property] = (settings as Record<string, unknown>)[property];
       } else if (this.element.hasAttribute("data-tilt-" + property)) {
-        let attribute = this.element.getAttribute("data-tilt-" + property);
+        const attribute = this.element.getAttribute("data-tilt-" + property);
         try {
-          newSettings[property] = JSON.parse(attribute!);
-        } catch (e) {
-          newSettings[property] = attribute;
+          (newSettings as Record<string, unknown>)[property] = JSON.parse(attribute!);
+        } catch {
+          (newSettings as Record<string, unknown>)[property] = attribute;
         }
       } else {
-        newSettings[property] = (defaultSettings as any)[property];
+        (newSettings as Record<string, unknown>)[property] = (defaultSettings as Record<string, unknown>)[property];
       }
     }
 
@@ -120,7 +146,7 @@ export class VanillaTilt {
       clientY: this.top + (this.settings.startY + this.settings.max) / (2 * this.settings.max) * this.height
     } as MouseEvent;
 
-    let scale = this.settings.scale;
+    const scale = this.settings.scale;
     this.settings.scale = 1;
     this.update();
     this.settings.scale = scale;
@@ -145,7 +171,7 @@ export class VanillaTilt {
   }
 
   private updateElementPosition() {
-    let rect = this.element.getBoundingClientRect();
+    const rect = this.element.getBoundingClientRect();
     this.width = this.element.offsetWidth;
     this.height = this.element.offsetHeight;
     this.left = rect.left;
@@ -153,7 +179,7 @@ export class VanillaTilt {
   }
 
   private update() {
-    let values = this.getValues();
+    const values = this.getValues();
 
     this.element.style.transform = 
       "perspective(" + this.settings.perspective + "px) " +
