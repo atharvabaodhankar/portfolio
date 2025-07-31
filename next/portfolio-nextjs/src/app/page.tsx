@@ -20,7 +20,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <>
       <Loader />
       <section id="main">
         <Navbar />
@@ -34,6 +34,6 @@ export default function Home() {
         <Work />
         <Footer />
       </section>
-    </main>
+    </>
   );
 }

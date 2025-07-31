@@ -1,8 +1,29 @@
 'use client';
 
+import { useEffect } from 'react';
 import Image from 'next/image';
 
 export default function Ferro() {
+  useEffect(() => {
+    const { gsap } = require('gsap');
+    const { ScrollTrigger } = require('gsap/ScrollTrigger');
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(".ferro-c1", {
+      xPercent: -200,
+      ease: "none",
+      scrollTrigger: {
+        scroller: "body",
+        trigger: "#ferro",
+        scrub: true,
+        start: "top top",
+        end: "+300% top",
+        pin: true,
+      },
+    });
+  }, []);
+
   return (
     <section id="ferro">
       <div className="ferro-header">
@@ -19,11 +40,11 @@ export default function Ferro() {
           <div className="ferro-img">
             <Image 
               src="/imgs/ferro.png" 
+              alt="" 
+              width={600} 
+              height={400}
               data-tilt 
               data-tilt-full-page-listening 
-              alt="ferro" 
-              width={400}
-              height={300}
             />
           </div>
           <p>

@@ -1,0 +1,5 @@
+Font files should be placed here:
+- ArsenicaTrial-Demibold.woff2
+- e9849a0be596192c822daa1765c81db9.woff2
+
+Please copy these files from the original portfolio directory.
