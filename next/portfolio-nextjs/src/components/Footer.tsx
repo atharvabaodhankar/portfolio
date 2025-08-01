@@ -1,10 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, ScrollTrigger } from '@/hooks/useGSAP';
 
 const Footer = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -14,6 +11,8 @@ const Footer = () => {
   const footerTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const section = sectionRef.current;
     const footer = footerRef.current;
     const footerLeft = footerLeftRef.current;
@@ -22,27 +21,34 @@ const Footer = () => {
 
     if (!section || !footer || !footerLeft || !footerRight || !footerText) return;
 
-    gsap.from([footerLeft, footerRight], {
-      yPercent: -100,
-      opacity: 0.7,
+    // Set initial states
+    gsap.set([footerLeft, footerRight], { y: -100, opacity: 0.7 });
+    gsap.set(footerText.querySelectorAll('h2'), { y: -100, opacity: 0, skewY: 10 });
+
+    gsap.to([footerLeft, footerRight], {
+      y: 0,
+      opacity: 1,
+      duration: 1.5,
+      ease: "power2.out",
       scrollTrigger: {
         trigger: section,
-        scrub: 3,
+        scrub: 1,
         start: "top 80%",
-        end: "40% 80%",
+        end: "50% 60%",
       },
     });
 
-    gsap.from(footerText.querySelectorAll('h2'), {
-      y: -100,
-      opacity: 0,
-      skewY: 10,
-      ease: "ease",
+    gsap.to(footerText.querySelectorAll('h2'), {
+      y: 0,
+      opacity: 1,
+      skewY: 0,
+      duration: 1,
+      ease: "power2.out",
       scrollTrigger: {
         trigger: footer,
-        scrub: 3,
+        scrub: 1,
         start: "40% 80%",
-        end: "60% 80%",
+        end: "80% 60%",
       },
     });
 

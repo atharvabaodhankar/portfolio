@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import { gsap } from '@/hooks/useGSAP';
 import Image from 'next/image';
 
 const Hero = () => {
@@ -12,6 +12,8 @@ const Hero = () => {
   const heroPRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const heroImg = heroImgRef.current;
     const heroH1 = heroH1Ref.current;
     const heroH2 = heroH2Ref.current;
@@ -19,43 +21,54 @@ const Hero = () => {
 
     if (!heroImg || !heroH1 || !heroH2 || !heroP) return;
 
-    const heroTl = gsap.timeline();
+    // Set initial states
+    gsap.set([heroImg, heroH1, heroH2, heroP], { opacity: 0 });
+    gsap.set(heroImg, { height: 0, scale: 0.8 });
+    gsap.set([heroH1, heroH2], { skewY: -10 });
+    gsap.set(heroP, { y: 20 });
 
-    heroTl.from(
+    const heroTl = gsap.timeline({ delay: 0.5 });
+
+    heroTl.to(
       heroImg,
       {
-        height: 0,
-        scale: 0.8,
-        ease: "elastic",
-        duration: 3,
+        height: "auto",
+        scale: 1,
+        opacity: 1,
+        ease: "elastic.out(1, 0.3)",
+        duration: 2,
       },
-      "HeroH1H2"
+      "start"
     );
 
-    heroTl.from(
+    heroTl.to(
       heroH1,
       {
-        skewY: -10,
-        delay: 1,
-        opacity: 0,
+        skewY: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
       },
-      "HeroH1H2"
+      "start+=0.5"
     );
 
-    heroTl.from(
+    heroTl.to(
       heroH2,
       {
-        skewY: -10,
-        delay: 1.3,
-        opacity: 0,
+        skewY: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
       },
-      "HeroH1H2"
+      "start+=0.8"
     );
 
-    heroTl.from(heroP, {
-      y: 20,
-      opacity: 0,
-    });
+    heroTl.to(heroP, {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: "power2.out",
+    }, "start+=1");
 
     return () => {
       heroTl.kill();

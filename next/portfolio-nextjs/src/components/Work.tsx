@@ -1,11 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '@/hooks/useGSAP';
 import Image from 'next/image';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Work = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,6 +12,8 @@ const Work = () => {
   const listItemsRef = useRef<HTMLLIElement[]>([]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const section = sectionRef.current;
     const workLeft = workLeftRef.current;
     const workImg = workImgRef.current;
@@ -23,59 +22,73 @@ const Work = () => {
 
     // Check if it's desktop for parallax effect
     const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    const imgElement = workImg.querySelector('img');
 
-    if (isDesktop) {
-      gsap.fromTo(
-        workImg.querySelector('img'),
-        { y: "-9vw" },
-        { 
-          y: "9vw", 
-          scrollTrigger: { 
-            trigger: workImg, 
-            scrub: 3 
-          } 
-        }
-      );
-    } else {
-      gsap.from(workImg.querySelector('img'), {
-        opacity: 0,
-        rotate: 10,
-        y: 10,
-        skewY: -10,
-        ease: "ease",
-        scrollTrigger: {
-          trigger: workImg,
-          start: "0% 60%",
-          end: "20% 60%",
-          scrub: 2,
-        },
-      });
+    if (imgElement) {
+      if (isDesktop) {
+        gsap.fromTo(
+          imgElement,
+          { y: "-9vw" },
+          { 
+            y: "9vw", 
+            ease: "none",
+            scrollTrigger: { 
+              trigger: workImg, 
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1
+            } 
+          }
+        );
+      } else {
+        gsap.set(imgElement, { opacity: 0, rotate: 10, y: 10, skewY: -10 });
+        gsap.to(imgElement, {
+          opacity: 1,
+          rotate: 0,
+          y: 0,
+          skewY: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: workImg,
+            start: "0% 80%",
+            end: "30% 60%",
+            scrub: 1,
+          },
+        });
+      }
     }
 
-    gsap.from(titleRefs.current, {
-      opacity: 0,
+    // Set initial states
+    gsap.set(titleRefs.current, { opacity: 0, y: 100, skewX: 10 });
+    gsap.set(listItemsRef.current, { opacity: 0, x: 100 });
+
+    gsap.to(titleRefs.current, {
+      opacity: 1,
+      y: 0,
+      skewX: 0,
+      duration: 1,
       stagger: 0.1,
-      y: 100,
-      skewX: 10,
-      ease: "ease",
+      ease: "power2.out",
       scrollTrigger: {
         trigger: workLeft,
         start: "0% 80%",
-        end: "30% 80%",
-        scrub: 2,
+        end: "40% 60%",
+        scrub: 1,
       },
     });
 
-    gsap.from(listItemsRef.current, {
-      opacity: 0,
+    gsap.to(listItemsRef.current, {
+      opacity: 1,
+      x: 0,
+      duration: 1,
       stagger: 0.1,
-      x: 100,
-      ease: "ease",
+      ease: "power2.out",
       scrollTrigger: {
         trigger: workLeft,
-        start: "0% 50%",
-        end: "20% 50%",
-        scrub: 2,
+        start: "20% 80%",
+        end: "60% 60%",
+        scrub: 1,
       },
     });
 

@@ -1,11 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '@/hooks/useGSAP';
 import Image from 'next/image';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -31,60 +28,81 @@ const Skills = () => {
   ];
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const section = sectionRef.current;
     const title = titleRef.current;
     const img = imgRef.current;
 
     if (!section || !title || !img) return;
 
+    // Set initial states for skills
+    skills.forEach((skill) => {
+      const skillElement = document.getElementById(skill.id);
+      if (skillElement) {
+        gsap.set(skillElement, { filter: "blur(10px)", opacity: 0 });
+      }
+    });
+
     // Skills animation timeline
     const skillsTl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "40% 50%",
-        end: "50% 50%",
-        scrub: 2,
+        start: "40% 80%",
+        end: "60% 50%",
+        scrub: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const skillsToShow = Math.floor(progress * skills.length);
+          
+          skills.forEach((skill, index) => {
+            const skillElement = document.getElementById(skill.id);
+            if (skillElement && index <= skillsToShow) {
+              gsap.to(skillElement, {
+                filter: "blur(0px)",
+                opacity: 1,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+            }
+          });
+        }
       },
-    });
-
-    // Animate skills one by one
-    skills.forEach((skill, index) => {
-      const skillElement = document.getElementById(skill.id);
-      if (skillElement) {
-        skillsTl.to(skillElement, {
-          filter: "blur(0px)",
-          opacity: 1,
-        }, index * 0.1);
-      }
     });
 
     // Title animation
-    gsap.from(title, {
-      opacity: 0,
-      yPercent: -100,
-      duration: 2,
-      ease: "easeIn",
-      scrollTrigger: {
-        trigger: section,
-        start: "40% 50%",
-        end: "55% 50%",
-        scrub: 2,
-      },
-    });
+    gsap.fromTo(title, 
+      { opacity: 0, y: 100 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "20% 80%",
+          end: "40% 50%",
+          scrub: 1,
+        },
+      }
+    );
 
     // Image animation
-    gsap.from(img, {
-      scale: 0.5,
-      duration: 1.5,
-      opacity: 0,
-      ease: "easeIn",
-      scrollTrigger: {
-        trigger: section,
-        start: "0 50%",
-        end: "50% 50%",
-        scrub: 2,
-      },
-    });
+    gsap.fromTo(img,
+      { scale: 0.5, opacity: 0 },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "10% 80%",
+          end: "30% 50%",
+          scrub: 1,
+        },
+      }
+    );
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());

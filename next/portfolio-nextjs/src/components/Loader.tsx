@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import { gsap } from '@/hooks/useGSAP';
 
 interface LoaderProps {
   onComplete: () => void;
@@ -13,56 +13,62 @@ const Loader = ({ onComplete }: LoaderProps) => {
   const textSpansRef = useRef<HTMLSpanElement[]>([]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const loading = loadingRef.current;
     const loader = loaderRef.current;
 
     if (!loading || !loader) return;
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setTimeout(() => {
-          onComplete();
-        }, 500);
-      },
-    });
+    // Set initial states
+    gsap.set(loading, { yPercent: 100 });
+    gsap.set(textSpansRef.current, { y: 130, skewY: 10 });
+    gsap.set(loader, { rotate: -360, scale: 4 });
+
+    const tl = gsap.timeline();
 
     // Initial loading animation
-    tl.from(loading, {
-      yPercent: 100,
+    tl.to(loading, {
+      yPercent: 0,
       ease: "power3.inOut",
       duration: 1,
     });
 
-    tl.from(
+    tl.to(
       textSpansRef.current,
       {
-        duration: 0.6,
-        delay: -0.3,
-        y: 130,
-        skewY: 10,
-        stagger: 0.4,
-        ease: "Power3.easeOut",
+        duration: 0.8,
+        y: 0,
+        skewY: 0,
+        stagger: 0.2,
+        ease: "power3.out",
       },
-      "loader-same"
+      "-=0.5"
     );
 
-    tl.from(
+    tl.to(
       loader,
       {
-        rotate: -360,
-        scale: 4,
-        duration: 2,
-        ease: "ease",
+        rotate: 0,
+        scale: 1,
+        duration: 1.5,
+        ease: "elastic.out(1, 0.3)",
       },
-      "loader-same"
+      "-=0.8"
     );
 
-    // Exit animation
-    const minPreloaderTime = 2000;
-    const startTime = Date.now();
+    // Exit animation after minimum time
+    const minPreloaderTime = 3000;
 
     setTimeout(() => {
-      const exitTl = gsap.timeline();
+      const exitTl = gsap.timeline({
+        onComplete: () => {
+          setTimeout(() => {
+            onComplete();
+          }, 200);
+        },
+      });
+
       exitTl.to(loading, {
         yPercent: -100,
         duration: 1.25,

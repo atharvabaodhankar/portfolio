@@ -1,54 +1,67 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import { gsap } from '@/hooks/useGSAP';
 
 const Marquee = () => {
   const marqueeRef = useRef<HTMLElement>(null);
   const arrowsRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     let currentScroll = 0;
     let isScrollingDown = true;
 
-    const tween = gsap
-      .to(".marquee_part", {
-        xPercent: -100,
-        repeat: -1,
-        duration: 5,
-        ease: "linear",
-      })
-      .totalProgress(0.5);
+    // Wait for DOM to be ready
+    const timer = setTimeout(() => {
+      const marqueeInner = document.querySelector(".marquee_inner");
+      const marqueeParts = document.querySelectorAll(".marquee_part");
 
-    gsap.set(".marquee_inner", { xPercent: -50 });
+      if (!marqueeInner || marqueeParts.length === 0) return;
 
-    const handleScroll = () => {
-      if (window.pageYOffset > currentScroll) {
-        isScrollingDown = true;
-      } else {
-        isScrollingDown = false;
-      }
+      const tween = gsap
+        .to(marqueeParts, {
+          xPercent: -100,
+          repeat: -1,
+          duration: 5,
+          ease: "none",
+        })
+        .totalProgress(0.5);
 
-      gsap.to(tween, {
-        timeScale: isScrollingDown ? 1 : -1,
-      });
+      gsap.set(marqueeInner, { xPercent: -50 });
 
-      arrowsRef.current.forEach((arrow) => {
-        if (isScrollingDown) {
-          arrow.classList.remove("active");
-        } else {
-          arrow.classList.add("active");
-        }
-      });
+      const handleScroll = () => {
+        const newScroll = window.pageYOffset;
+        isScrollingDown = newScroll > currentScroll;
 
-      currentScroll = window.pageYOffset;
-    };
+        gsap.to(tween, {
+          timeScale: isScrollingDown ? 1 : -1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
 
-    window.addEventListener("scroll", handleScroll);
+        arrowsRef.current.forEach((arrow) => {
+          if (isScrollingDown) {
+            arrow.classList.remove("active");
+          } else {
+            arrow.classList.add("active");
+          }
+        });
+
+        currentScroll = newScroll;
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        tween.kill();
+      };
+    }, 100);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      tween.kill();
+      clearTimeout(timer);
     };
   }, []);
 

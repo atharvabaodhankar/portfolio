@@ -1,36 +1,44 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '@/hooks/useGSAP';
 import Image from 'next/image';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Ferro = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const section = sectionRef.current;
     const container = containerRef.current;
 
     if (!section || !container) return;
 
-    // Horizontal scroll animation
-    gsap.to(".ferro-c1", {
-      xPercent: -200,
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        scrub: true,
-        start: "top top",
-        end: "+300% top",
-        pin: true,
-      },
-    });
+    // Wait for DOM to be ready
+    const timer = setTimeout(() => {
+      const ferroSections = document.querySelectorAll(".ferro-c1");
+      
+      if (ferroSections.length === 0) return;
+
+      // Horizontal scroll animation
+      gsap.to(ferroSections, {
+        xPercent: -200,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          scrub: 1,
+          start: "top top",
+          end: "+=300%",
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+    }, 100);
 
     return () => {
+      clearTimeout(timer);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);

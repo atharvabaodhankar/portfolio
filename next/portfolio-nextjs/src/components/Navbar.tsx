@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
+import { gsap } from '@/hooks/useGSAP';
 import Image from 'next/image';
 
 const Navbar = () => {
@@ -46,25 +46,33 @@ const Navbar = () => {
   }, []);
 
   const openNav = () => {
+    if (typeof window === 'undefined') return;
+    
     setIsNavOpen(true);
     if (navRef.current) {
       navRef.current.classList.add("active");
     }
 
-    gsap.from(navImgRef.current, {
-      opacity: 0,
-      xPercent: -100,
-      duration: 2,
+    // Set initial states
+    gsap.set(navImgRef.current, { opacity: 0, x: "-100%" });
+    gsap.set(navLinksRef.current, { opacity: 0, skewY: 60, y: "-100%" });
+
+    // Animate in
+    gsap.to(navImgRef.current, {
+      opacity: 1,
+      x: "0%",
+      duration: 1.5,
       ease: "power4.inOut",
     });
 
-    gsap.from(navLinksRef.current, {
-      opacity: 0,
-      skewY: 60,
-      yPercent: -360,
-      stagger: 0.2,
-      duration: 1,
-      ease: "easeIn",
+    gsap.to(navLinksRef.current, {
+      opacity: 1,
+      skewY: 0,
+      y: "0%",
+      stagger: 0.15,
+      duration: 0.8,
+      ease: "power2.out",
+      delay: 0.3,
     });
   };
 

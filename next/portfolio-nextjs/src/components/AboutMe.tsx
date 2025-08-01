@@ -1,11 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '@/hooks/useGSAP';
 import Image from 'next/image';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const AboutMe = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,6 +12,8 @@ const AboutMe = () => {
   const textSpansRef = useRef<HTMLSpanElement[]>([]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const section = sectionRef.current;
     const imgOuter = imgOuterRef.current;
     const title = titleRef.current;
@@ -22,34 +21,43 @@ const AboutMe = () => {
 
     if (!section || !imgOuter || !title || !leftTitle) return;
 
+    // Set initial states
+    gsap.set([imgOuter, title, leftTitle, ...textSpansRef.current], { opacity: 0 });
+    gsap.set(imgOuter, { y: 100 });
+    gsap.set(title, { x: -100 });
+    gsap.set([leftTitle, ...textSpansRef.current], { x: 100, skewX: 20 });
+
     const aboutMeTl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "10% 50%",
-        end: "50% 50%",
-        scrub: 2,
+        start: "10% 80%",
+        end: "60% 50%",
+        scrub: 1,
       },
     });
 
-    aboutMeTl.from(imgOuter, {
-      opacity: 0,
-      y: 100,
-      ease: "ease",
-    });
+    aboutMeTl.to(imgOuter, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power2.out",
+    }, 0);
 
-    aboutMeTl.from(title, {
-      opacity: 0,
-      x: -100,
-      ease: "ease",
-    });
+    aboutMeTl.to(title, {
+      opacity: 1,
+      x: 0,
+      duration: 1,
+      ease: "power2.out",
+    }, 0.2);
 
-    aboutMeTl.from([leftTitle, ...textSpansRef.current], {
-      opacity: 0,
-      x: 100,
-      stagger: 0.2,
-      skewX: 40,
-      ease: "ease",
-    });
+    aboutMeTl.to([leftTitle, ...textSpansRef.current], {
+      opacity: 1,
+      x: 0,
+      skewX: 0,
+      duration: 1,
+      stagger: 0.1,
+      ease: "power2.out",
+    }, 0.4);
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());

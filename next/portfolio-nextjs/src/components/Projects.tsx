@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '@/hooks/useGSAP';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectCoverflow, Parallax } from 'swiper/modules';
 import Image from 'next/image';
@@ -11,8 +10,6 @@ import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/parallax';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -127,34 +124,42 @@ const Projects = () => {
   ];
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const header = headerRef.current;
     const article = articleRef.current;
 
     if (!header || !article) return;
 
-    gsap.from(header.querySelector('h1'), {
-      opacity: 0,
-      y: 100,
-      stagger: 0.2,
-      ease: "ease",
-      scrollTrigger: {
-        trigger: header,
-        start: "0% 80%",
-        end: "40% 50%",
-        scrub: 2,
-      },
-    });
+    const headerTitle = header.querySelector('h1');
+    
+    if (headerTitle) {
+      gsap.set(headerTitle, { opacity: 0, y: 100 });
+      gsap.to(headerTitle, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: header,
+          start: "0% 80%",
+          end: "50% 50%",
+          scrub: 1,
+        },
+      });
+    }
 
-    gsap.from(article, {
-      opacity: 0,
-      y: 100,
-      stagger: 0.2,
-      ease: "ease",
+    gsap.set(article, { opacity: 0, y: 100 });
+    gsap.to(article, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power2.out",
       scrollTrigger: {
         trigger: article,
         start: "0% 80%",
-        end: "40% 50%",
-        scrub: 2,
+        end: "50% 50%",
+        scrub: 1,
       },
     });
 

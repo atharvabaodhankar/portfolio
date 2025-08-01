@@ -1,11 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '@/hooks/useGSAP';
 import Image from 'next/image';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Created = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,6 +12,8 @@ const Created = () => {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const section = sectionRef.current;
     const created = createdRef.current;
     const img1 = img1Ref.current;
@@ -26,58 +25,70 @@ const Created = () => {
     // Check if it's desktop
     const isDesktop = window.matchMedia("(min-width: 768px)").matches;
 
+    // Set initial states
+    gsap.set([img1, img2, text], { opacity: 0 });
+
     if (isDesktop) {
-      gsap.from([img1, img2], {
-        opacity: 0,
-        xPercent: -150,
-        skewY: 10,
-        duration: 2,
-        ease: "ease",
+      gsap.set([img1, img2], { x: -200, skewY: 10 });
+      gsap.set(text, { x: -100, skewY: 10 });
+
+      gsap.to([img1, img2], {
+        opacity: 1,
+        x: 0,
+        skewY: 0,
+        duration: 1.5,
+        ease: "power2.out",
+        stagger: 0.2,
         scrollTrigger: {
           trigger: section,
-          start: "30% 50%",
-          end: "55% 50%",
-          scrub: 2,
+          start: "30% 80%",
+          end: "60% 50%",
+          scrub: 1,
         },
       });
 
-      gsap.from(text, {
-        opacity: 0,
-        xPercent: -100,
-        skewY: 10,
-        delay: 1,
-        duration: 2,
-        ease: "ease",
+      gsap.to(text, {
+        opacity: 1,
+        x: 0,
+        skewY: 0,
+        duration: 1.5,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: section,
-          start: "30% 50%",
-          end: "55% 50%",
-          scrub: 2,
+          start: "40% 80%",
+          end: "70% 50%",
+          scrub: 1,
         },
       });
     } else {
-      gsap.from([img1, img2], {
-        opacity: 0,
-        skewY: 10,
-        ease: "ease",
+      gsap.set([img1, img2], { skewY: 10 });
+      gsap.set(text, { y: 100, skewY: 10 });
+
+      gsap.to([img1, img2], {
+        opacity: 1,
+        skewY: 0,
+        duration: 1,
+        ease: "power2.out",
+        stagger: 0.1,
         scrollTrigger: {
           trigger: section,
-          start: "30% 50%",
-          end: "55% 50%",
-          scrub: 2,
+          start: "30% 80%",
+          end: "60% 50%",
+          scrub: 1,
         },
       });
 
-      gsap.from(text, {
-        opacity: 0,
-        y: 100,
-        skewY: 10,
-        ease: "ease",
+      gsap.to(text, {
+        opacity: 1,
+        y: 0,
+        skewY: 0,
+        duration: 1,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: section,
-          start: "30% 50%",
-          end: "55% 50%",
-          scrub: 2,
+          start: "40% 80%",
+          end: "70% 50%",
+          scrub: 1,
         },
       });
     }
