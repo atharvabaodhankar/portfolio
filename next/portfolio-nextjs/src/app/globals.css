@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
 @font-face {
     font-family: ArsenicaDemibold;
     src: url(/fonts/ArsenicaTrial-Demibold.woff2);
@@ -9,8 +11,6 @@
     src: url(/fonts/e9849a0be596192c822daa1765c81db9.woff2);
     font-display: swap;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 
 * {
     padding: 0;
