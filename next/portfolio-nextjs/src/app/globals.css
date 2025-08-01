@@ -1,11 +1,13 @@
 @font-face {
     font-family: ArsenicaDemibold;
     src: url(/fonts/ArsenicaTrial-Demibold.woff2);
+    font-display: swap;
 }
 
 @font-face {
     font-family: FontStyleNew;
     src: url(/fonts/e9849a0be596192c822daa1765c81db9.woff2);
+    font-display: swap;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
@@ -1185,7 +1187,7 @@ article {
     }
 }
 
-/* Responsive styles */
+/* Responsive Design */
 @media screen and (max-width: 1300px) {
     .hero-img {
         width: 32vw;
@@ -1346,7 +1348,7 @@ article {
     .ferro-img {
         width: 70%;
     }
-    
+
     .ferro-section-3 h1 {
         font-size: 9vw !important;
     }
@@ -1579,8 +1581,4 @@ article {
     .social-media-list {
         width: 90%;
     }
-}
-
-.non-hover {
-    /* Placeholder for non-hover elements */
 }

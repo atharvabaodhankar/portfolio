@@ -1,50 +1,61 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 
-export default function Ferro() {
+gsap.registerPlugin(ScrollTrigger);
+
+const Ferro = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const { gsap } = require('gsap');
-    const { ScrollTrigger } = require('gsap/ScrollTrigger');
+    const section = sectionRef.current;
+    const container = containerRef.current;
 
-    gsap.registerPlugin(ScrollTrigger);
+    if (!section || !container) return;
 
+    // Horizontal scroll animation
     gsap.to(".ferro-c1", {
       xPercent: -200,
       ease: "none",
       scrollTrigger: {
-        scroller: "body",
-        trigger: "#ferro",
+        trigger: section,
         scrub: true,
         start: "top top",
         end: "+300% top",
         pin: true,
       },
     });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
-    <section id="ferro">
+    <section id="ferro" ref={sectionRef}>
       <div className="ferro-header">
         <h1>&nbsp;</h1>
       </div>
-      <div className="ferro-container">
+      <div className="ferro-container" ref={containerRef}>
         <div className="ferro-c1 ferro-section-1">
           <div className="ferro-section-1-text">
             <h1 className="ferro-h1">What is Ferro.Js?</h1>
             <h2 className="ferro-h2">A Dynamic JavaScript Animation Library</h2>
           </div>
         </div>
+        
         <div className="ferro-c1 ferro-section-2">
           <div className="ferro-img">
             <Image 
               src="/imgs/ferro.png" 
-              alt="" 
-              width={600} 
-              height={400}
-              data-tilt 
-              data-tilt-full-page-listening 
+              alt="Ferro.js" 
+              width={400}
+              height={300}
+              style={{ objectFit: 'contain', width: '100%', height: '100%' }}
             />
           </div>
           <p>
@@ -55,14 +66,21 @@ export default function Ferro() {
             unique user experience.
           </p>
         </div>
+        
         <div className="ferro-c1 ferro-section-3">
           <div className="ferro-section-1-text">
             <h1 className="ferro-h1">Elevate Your Web Experience with Interactive Animations</h1>
-            <a href="https://www.npmjs.com/package/ferro-js" className="ferro-btn">Visit NPM</a>
-            <a href="https://github.com/atharvabaodhankar/ferro.js" className="ferro-btn">Visit GITHUB</a>
+            <a href="https://www.npmjs.com/package/ferro-js" className="ferro-btn" target="_blank" rel="noopener noreferrer">
+              Visit NPM
+            </a>
+            <a href="https://github.com/atharvabaodhankar/ferro.js" className="ferro-btn" target="_blank" rel="noopener noreferrer">
+              Visit GITHUB
+            </a>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Ferro;
