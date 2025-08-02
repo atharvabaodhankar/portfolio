@@ -1,222 +1,49 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/hooks/useGSAP";
-import Image from "next/image";
+import React from 'react'
 
 const Work = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const workLeftRef = useRef<HTMLDivElement>(null);
-  const workImgRef = useRef<HTMLDivElement>(null);
-  const h2Ref = useRef<HTMLHeadingElement>(null);
-  const h1Ref = useRef<HTMLHeadingElement>(null);
-  const socialListRef = useRef<HTMLDivElement>(null);
-  const contactListRef = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const section = sectionRef.current;
-    const workLeft = workLeftRef.current;
-    const workImg = workImgRef.current;
-
-    if (!section || !workLeft || !workImg) return;
-
-    // Check if it's desktop for parallax effect
-    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-    const imgElement = workImg.querySelector("img");
-
-    if (imgElement) {
-      if (isDesktop) {
-        gsap.fromTo(
-          imgElement,
-          { y: "-9vw" },
-          {
-            y: "9vw",
-            ease: "none",
-            scrollTrigger: {
-              trigger: workImg,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1,
-            },
-          }
-        );
-      } else {
-        gsap.set(imgElement, { opacity: 0, rotate: 10, y: 10, skewY: -10 });
-        gsap.to(imgElement, {
-          opacity: 1,
-          rotate: 0,
-          y: 0,
-          skewY: 0,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: workImg,
-            start: "0% 80%",
-            end: "30% 60%",
-            scrub: 1,
-          },
-        });
-      }
-    }
-
-    // Set initial states
-    gsap.set([h2Ref.current, h1Ref.current], { opacity: 0, y: 100, skewX: 10 });
-    gsap.set([socialListRef.current, contactListRef.current], {
-      opacity: 0,
-      x: 100,
-    });
-
-    gsap.to([h2Ref.current, h1Ref.current], {
-      opacity: 1,
-      y: 0,
-      skewX: 0,
-      duration: 1,
-      stagger: 0.1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: workLeft,
-        start: "0% 80%",
-        end: "40% 60%",
-        scrub: 1,
-      },
-    });
-
-    gsap.to([socialListRef.current, contactListRef.current], {
-      opacity: 1,
-      x: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: workLeft,
-        start: "20% 80%",
-        end: "60% 60%",
-        scrub: 1,
-      },
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
   return (
-    <section id="work" ref={sectionRef}>
-      <div className="work-left" ref={workLeftRef}>
-        <div className="work-header">
-          <p className="work-name" ref={h2Ref}>
-            Atharva Baodhankar
-          </p>
-          <h1 className="work-title" ref={h1Ref}>
-            WORK
-            <br />
-            WITH ME
-          </h1>
-        </div>
+    <section id="work">
+      <div className="work-left">
+        <h2>Atharva Baodhankar</h2>
+        <h1>WORK <br /> WITH ME</h1>
 
-        <div className="work-social-icons" ref={socialListRef}>
-          <a
-            href="https://github.com/atharvabaodhankar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-icon"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
-                fill="currentColor"
-              />
-            </svg>
+        <div className="social-media-list">
+          <a href="https://github.com/atharvabaodhankar" target="_blank" className="contact-icon">
+            <li>
+              <i className="fa-brands fa-github"></i>
+            </li>
           </a>
-          <a
-            href="https://www.facebook.com/profile.php?id=100069517304222"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-icon"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-                fill="currentColor"
-              />
-            </svg>
+
+          <a href="https://www.facebook.com/profile.php?id=100069517304222" target="_blank" className="contact-icon">
+            <li>
+              <i className="fa-brands fa-facebook-f"></i>
+            </li>
           </a>
-          <a
-            href="https://www.instagram.com/op_athu_/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-icon"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-                fill="currentColor"
-              />
-            </svg>
+
+          <a href="https://www.instagram.com/op_athu_/" target="_blank" className="contact-icon">
+            <li>
+              <i className="fa-brands fa-instagram"></i>
+            </li>
           </a>
-          <a
-            href="https://www.linkedin.com/in/atharva-baodhankar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-icon"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                fill="currentColor"
-              />
-            </svg>
+          
+          <a href="https://www.linkedin.com/in/atharva-baodhankar" target="_blank" className="contact-icon">
+            <li>
+              <i className="fa-brands fa-linkedin-in"></i>
+            </li>
           </a>
         </div>
 
-        <div className="work-contact-info" ref={contactListRef}>
-          <p className="work-location">Solapur, Maharashtra</p>
-          <p className="work-phone">+91 9373924727</p>
-          <p className="work-email">baodhankaratharva@.gmail.com</p>
-        </div>
+        <ul>
+          <li>Solapur, Maharashtra </li>
+          <li>+91 9373924727</li>
+          <li>baodhankaratharva@.gmail.com</li>
+        </ul>
       </div>
-
-      <div className="work-img" ref={workImgRef}>
-        <Image
-          src="/imgs/navBar-img.jpg"
-          alt="Atharva Baodhankar"
-          width={500}
-          height={600}
-          style={{
-            objectFit: "cover",
-            width: "100%",
-            height: "100%",
-          }}
-        />
+      <div className="work-img non-hover">
+        <img src="./imgs/navBar-img.jpg" alt="" />
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Work;
+export default Work
