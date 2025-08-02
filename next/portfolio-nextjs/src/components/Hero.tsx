@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import { gsap } from '@/hooks/useGSAP';
-import Image from 'next/image';
+import { useEffect, useRef } from "react";
+import { gsap } from "@/hooks/useGSAP";
+import Image from "next/image";
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -12,7 +12,7 @@ const Hero = () => {
   const heroPRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const heroImg = heroImgRef.current;
     const heroH1 = heroH1Ref.current;
@@ -23,7 +23,7 @@ const Hero = () => {
 
     // Set initial states
     gsap.set([heroImg, heroH1, heroH2, heroP], { opacity: 0 });
-    gsap.set(heroImg, { height: 0, scale: 0.8 });
+    gsap.set(heroImg, { scale: 0.8 });
     gsap.set([heroH1, heroH2], { skewY: -10 });
     gsap.set(heroP, { y: 20 });
 
@@ -32,7 +32,6 @@ const Hero = () => {
     heroTl.to(
       heroImg,
       {
-        height: "auto",
         scale: 1,
         opacity: 1,
         ease: "elastic.out(1, 0.3)",
@@ -63,12 +62,16 @@ const Hero = () => {
       "start+=0.8"
     );
 
-    heroTl.to(heroP, {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: "power2.out",
-    }, "start+=1");
+    heroTl.to(
+      heroP,
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+      },
+      "start+=1"
+    );
 
     return () => {
       heroTl.kill();
@@ -78,17 +81,21 @@ const Hero = () => {
   return (
     <section id="hero" ref={heroRef}>
       <div className="hero">
-        <h1 className="hero-hover" ref={heroH1Ref}>ATHARVA</h1>
+        <h1 className="hero-hover" ref={heroH1Ref}>
+          ATHARVA
+        </h1>
         <div className="hero-img non-hover" ref={heroImgRef}>
-          <Image 
-            src="/imgs/hero-img.jpg" 
-            alt="hero" 
+          <Image
+            src="/imgs/hero-img.jpg"
+            alt="hero"
             width={400}
             height={300}
-            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+            style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
         </div>
-        <h2 className="hero-hover" ref={heroH2Ref}>BAODHANKAR</h2>
+        <h2 className="hero-hover" ref={heroH2Ref}>
+          BAODHANKAR
+        </h2>
         <p ref={heroPRef}>Web Designer and Video Editor</p>
       </div>
     </section>
