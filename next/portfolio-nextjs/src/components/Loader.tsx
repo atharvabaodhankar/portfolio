@@ -52,13 +52,13 @@ const Loader = ({ onComplete }: LoaderProps) => {
         rotate: 0,
         scale: 1,
         duration: 1.5,
-        ease: "elastic.out(1, 0.3)",
+        ease: "power3.out",
       },
       "-=0.8"
     );
 
     // Exit animation after minimum time
-    const minPreloaderTime = 3000;
+    const minPreloaderTime = 2000;
 
     setTimeout(() => {
       const exitTl = gsap.timeline({
