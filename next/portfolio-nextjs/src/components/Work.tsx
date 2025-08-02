@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const Work = () => {
+  const workRef = useRef<HTMLElement>(null)
+  const workImgRef = useRef<HTMLDivElement>(null)
+  const workLeftRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
-    const initWorkAnimations = async () => {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      
-      gsap.registerPlugin(ScrollTrigger);
+    if (typeof window !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger)
 
-      // Check if elements exist before animating
-      const workImg = document.querySelector('.work-img img');
-      const workLeft = document.querySelector('.work-left');
-      const workHeadings = document.querySelectorAll('.work-left h2, .work-left h1');
-      const workListItems = document.querySelectorAll('.work-left ul li');
+      const ctx = gsap.context(() => {
+        // Set initial states to prevent flash
+        gsap.set('.work-left h2, .work-left h1', { opacity: 0, y: 100, skewX: 10 })
+        gsap.set('.work-left ul li', { opacity: 0, x: 100 })
+        gsap.set('.work-img img', { opacity: 0, rotate: 10, y: 10, skewY: -10 })
 
-      if (workImg && workLeft) {
         // Different animations for desktop and mobile
         if (window.matchMedia("(min-width: 768px)").matches) {
+          // Desktop parallax effect
+          gsap.set('.work-img img', { opacity: 1, rotate: 0, y: "-9vw", skewY: 0 })
           gsap.fromTo(
             ".work-img img",
             { y: "-9vw" },
@@ -24,79 +28,68 @@ const Work = () => {
               y: "9vw", 
               scrollTrigger: { 
                 trigger: ".work-img", 
-                scrub: 3 
+                scrub: 3,
+                start: "top bottom",
+                end: "bottom top"
               } 
             }
-          );
+          )
         } else {
-          gsap.from(".work-img img", {
-            opacity: 0,
-            rotate: 10,
-            y: 10,
-            skewY: -10,
-            ease: "ease",
+          // Mobile entrance animation
+          gsap.to(".work-img img", {
+            opacity: 1,
+            rotate: 0,
+            y: 0,
+            skewY: 0,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: ".work-img",
               start: "0% 60%",
               end: "20% 60%",
               scrub: 2,
             },
-          });
+          })
         }
 
         // Animate headings
-        if (workHeadings.length > 0) {
-          gsap.from(".work-left h2, .work-left h1", {
-            opacity: 0,
-            stagger: 0.1,
-            y: 100,
-            skewX: 10,
-            ease: "ease",
-            scrollTrigger: {
-              trigger: ".work-left",
-              start: "0% 80%",
-              end: "30% 80%",
-              scrub: 2,
-            },
-          });
-        }
+        gsap.to(".work-left h2, .work-left h1", {
+          opacity: 1,
+          stagger: 0.1,
+          y: 0,
+          skewX: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".work-left",
+            start: "0% 80%",
+            end: "30% 80%",
+            scrub: 2,
+          },
+        })
 
         // Animate list items
-        if (workListItems.length > 0) {
-          gsap.from(".work-left ul li", {
-            opacity: 0,
-            stagger: 0.1,
-            x: 100,
-            ease: "ease",
-            scrollTrigger: {
-              trigger: ".work-left",
-              start: "0% 50%",
-              end: "20% 50%",
-              scrub: 2,
-            },
-          });
-        }
+        gsap.to(".work-left ul li", {
+          opacity: 1,
+          stagger: 0.1,
+          x: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".work-left",
+            start: "0% 50%",
+            end: "20% 50%",
+            scrub: 2,
+          },
+        })
+
+      }, workRef)
+
+      return () => {
+        ctx.revert()
       }
-    };
-
-    initWorkAnimations();
-
-    return () => {
-      // Cleanup ScrollTrigger instances
-      const { ScrollTrigger } = require('gsap/ScrollTrigger');
-      ScrollTrigger.getAll().forEach((trigger: any) => {
-        if (trigger.trigger && (
-          trigger.trigger.classList?.contains('work-img') || 
-          trigger.trigger.classList?.contains('work-left')
-        )) {
-          trigger.kill();
-        }
-      });
-    };
-  }, []);
+    }
+  }, [])
   return (
-    <section id="work">
-      <div className="work-left">
+    <section id="work" ref={workRef}>
+      <div className="work-left" ref={workLeftRef}>
         <h2>Atharva Baodhankar</h2>
         <h1>WORK <br /> WITH ME</h1>
 
@@ -132,7 +125,7 @@ const Work = () => {
           <li>baodhankaratharva@.gmail.com</li>
         </ul>
       </div>
-      <div className="work-img non-hover">
+      <div className="work-img non-hover" ref={workImgRef}>
         <img src="./imgs/navBar-img.jpg" alt="" />
       </div>
     </section>

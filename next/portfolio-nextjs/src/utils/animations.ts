@@ -1,7 +1,7 @@
 export const initializeAnimations = async () => {
   const { gsap } = await import('gsap');
   const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-  const { Lenis } = await import('lenis');
+  const Lenis = (await import('lenis')).default;
 
   gsap.registerPlugin(ScrollTrigger);
 
