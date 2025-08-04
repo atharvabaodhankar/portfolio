@@ -9,17 +9,17 @@ function App() {
     // Wait a bit for all scripts to load
     setTimeout(() => {
       if (
-        !(window).gsap ||
-        !(window).ScrollTrigger ||
-        !(window).Lenis ||
-        !(window).Swiper
+        !window.gsap ||
+        !window.ScrollTrigger ||
+        !window.Lenis ||
+        !window.Swiper
       ) {
         console.log("Libraries not loaded yet");
         return;
       }
 
       // EXACT COPY OF YOUR SCRIPT.JS
-      const lenis = new (window).Lenis({
+      const lenis = new window.Lenis({
         lerp: 0.05,
       });
 
@@ -30,7 +30,7 @@ function App() {
       requestAnimationFrame(raf);
 
       // Register ScrollTrigger
-      (window).gsap.registerPlugin((window).ScrollTrigger);
+      window.gsap.registerPlugin(window.ScrollTrigger);
 
       // Navbar
       let lastScroll = 0;
@@ -63,7 +63,7 @@ function App() {
         let isScrollingDown = true;
         let arrows = document.querySelectorAll(".arrow");
 
-        let tween = (window).gsap
+        let tween = window.gsap
           .to(".marquee_part", {
             xPercent: -100,
             repeat: -1,
@@ -71,7 +71,7 @@ function App() {
             ease: "linear",
           })
           .totalProgress(0.5);
-        (window).gsap.set(".marquee_inner", { xPercent: -50 });
+        window.gsap.set(".marquee_inner", { xPercent: -50 });
 
         window.addEventListener("scroll", () => {
           if (window.pageYOffset > currentScroll) {
@@ -79,7 +79,7 @@ function App() {
           } else {
             isScrollingDown = false;
           }
-          (window).gsap.to(tween, {
+          window.gsap.to(tween, {
             timeScale: isScrollingDown ? 1 : -1,
           });
 
