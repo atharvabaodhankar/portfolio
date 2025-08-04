@@ -8,7 +8,9 @@ function App() {
   useEffect(() => {
     // Wait for all libraries to load
     const checkLibrariesLoaded = () => {
-      if (window.gsap && window.Lenis && window.Swiper) {
+      if (window.gsap && window.ScrollTrigger && window.Lenis && window.Swiper) {
+        // Register ScrollTrigger plugin
+        window.gsap.registerPlugin(window.ScrollTrigger);
         initializeApp();
       } else {
         setTimeout(checkLibrariesLoaded, 100);
@@ -16,6 +18,17 @@ function App() {
     };
 
     const initializeApp = () => {
+      // Initialize Lenis smooth scroll first
+      const lenis = new window.Lenis({
+        lerp: 0.05,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
       // Loader animation
       const loadingAnimation = () => {
         const tl = window.gsap.timeline({
@@ -104,17 +117,6 @@ function App() {
       };
 
       const initializeAnimations = () => {
-        // Initialize Lenis smooth scroll
-        const lenis = new window.Lenis({
-          lerp: 0.05,
-        });
-
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
         // Navbar scroll behavior
         let lastScroll = 0;
         const handleScroll = () => {
@@ -226,6 +228,209 @@ function App() {
           },
         });
 
+        // Created section animations
+        if (window.matchMedia("(min-width: 768px)").matches) {
+          window.gsap.from(".created-img", {
+            opacity: 0,
+            xPercent: -150,
+            skewY: 10,
+            duration: 2,
+            ease: "ease",
+            scrollTrigger: {
+              trigger: "#created",
+              start: "30% 50%",
+              end: "55% 50%",
+              scrub: 2,
+            },
+          });
+          window.gsap.from(".created h1", {
+            opacity: 0,
+            xPercent: -100,
+            skewY: 10,
+            delay: 1,
+            duration: 2,
+            ease: "ease",
+            scrollTrigger: {
+              trigger: "#created",
+              start: "30% 50%",
+              end: "55% 50%",
+              scrub: 2,
+            },
+          });
+        } else {
+          window.gsap.from(".created-img", {
+            opacity: 0,
+            skewY: 10,
+            ease: "ease",
+            scrollTrigger: {
+              trigger: "#created",
+              start: "30% 50%",
+              end: "55% 50%",
+              scrub: 2,
+            },
+          });
+          window.gsap.from(".created h1", {
+            opacity: 0,
+            y: 100,
+            skewY: 10,
+            ease: "ease",
+            scrollTrigger: {
+              trigger: "#created",
+              start: "30% 50%",
+              end: "55% 50%",
+              scrub: 2,
+            },
+          });
+        }
+
+        // About me section animations
+        let aboutMeTl = window.gsap.timeline({
+          scrollTrigger: {
+            trigger: "#aboutme",
+            start: "10% 50%",
+            end: "50% 50%",
+            scrub: 2,
+          },
+        });
+
+        aboutMeTl.from(".aboutmeimg-outer", {
+          opacity: 0,
+          y: 100,
+          ease: "ease",
+        });
+
+        aboutMeTl.from(".aboutme-right h1", {
+          opacity: 0,
+          x: -100,
+          ease: "ease",
+        });
+
+        aboutMeTl.from(".aboutme-left-text-h1 ,.aboutme-left-text-p span", {
+          opacity: 0,
+          x: 100,
+          stagger: 0.2,
+          skewX: 40,
+          ease: "ease",
+        });
+
+        // Projects section animations
+        window.gsap.from(".projects-header h1", {
+          opacity: 0,
+          y: 100,
+          stagger: 0.2,
+          ease: "ease",
+          scrollTrigger: {
+            trigger: ".projects-header",
+            start: "0% 80%",
+            end: "40% 50%",
+            scrub: 2,
+          },
+        });
+
+        window.gsap.from(".project-article", {
+          opacity: 0,
+          y: 100,
+          stagger: 0.2,
+          ease: "ease",
+          scrollTrigger: {
+            trigger: ".project-article",
+            start: "0% 80%",
+            end: "40% 50%",
+            scrub: 2,
+          },
+        });
+
+        // Work section animations
+        if (window.matchMedia("(min-width: 768px)").matches) {
+          window.gsap.fromTo(
+            ".work-img img",
+            { y: "-9vw" },
+            { y: "9vw ", scrollTrigger: { trigger: ".work-img", scrub: 3 } }
+          );
+        } else {
+          window.gsap.from(".work-img img", {
+            opacity: 0,
+            rotate: 10,
+            y: 10,
+            skewY: -10,
+            ease: "ease",
+            scrollTrigger: {
+              trigger: ".work-img",
+              start: "0% 60%",
+              end: "20% 60%",
+              scrub: 2,
+            },
+          });
+        }
+
+        window.gsap.from(".work-left h2 , .work-left h1", {
+          opacity: 0,
+          stagger: 0.1,
+          y: 100,
+          skewX: 10,
+          ease: "ease",
+          scrollTrigger: {
+            trigger: ".work-left",
+            start: "0% 80%",
+            end: "30% 80%",
+            scrub: 2,
+          },
+        });
+
+        window.gsap.from(".work-left ul li", {
+          opacity: 0,
+          stagger: 0.1,
+          x: 100,
+          ease: "ease",
+          scrollTrigger: {
+            trigger: ".work-left",
+            start: "0% 50%",
+            end: "20% 50%",
+            scrub: 2,
+          },
+        });
+
+        // Footer animations
+        window.gsap.from(".footer-left , .footer-right ", {
+          yPercent: -100,
+          opacity: 0.7,
+          scrollTrigger: {
+            scroller: "body",
+            trigger: "#footer",
+            scrub: 3,
+            start: "top 80%",
+            end: "40% 80%",
+          },
+        });
+
+        window.gsap.from(".footer-text h2", {
+          y: -100,
+          opacity: 0,
+          skewY: 10,
+          ease: "ease",
+          scrollTrigger: {
+            scroller: "body",
+            trigger: ".footer",
+            scrub: 3,
+            start: "40% 80%",
+            end: "60% 80%",
+          },
+        });
+
+        // Ferro section animation
+        window.gsap.to(".ferro-c1", {
+          xPercent: -200,
+          ease: "none",
+          scrollTrigger: {
+            scroller: "body",
+            trigger: "#ferro",
+            scrub: true,
+            start: "top top",
+            end: "+300% top",
+            pin: true,
+          },
+        });
+
         // Initialize Swiper
         const swiper = new window.Swiper(".swiper", {
           direction: "horizontal",
@@ -278,10 +483,26 @@ function App() {
             ease: "cubic-bezier(0.23, 1, 0.320, 1)",
             duration: 1,
           });
+
+          window.Shery.makeMagnet(".aboutme-img", {
+            ease: "cubic-bezier(0.23, 1, 0.320, 1)",
+            duration: 1,
+          });
+
+          window.Shery.imageEffect(".skills-img", {
+            style: 3,
+            preset: "./presets/wigglewobble.json",
+          });
+
+          window.Shery.imageEffect(".created-img", {
+            style: 6,
+            preset: "./presets/wigglewobble.json",
+          });
         }
 
         if (window.Ferro) {
           window.Ferro.mouseFollower(1, "12px", true, ["h1", ".nav-btn", ".hero-hover", ".ferro-c1 p", ".ferro-btn"], 3);
+          window.Ferro.button(".ferro-btn", 0.5, "ease");
         }
 
         if (window.VanillaTilt) {
@@ -358,22 +579,24 @@ function App() {
   const handleNavToggle = () => {
     setNavActive(!navActive);
     
-    if (!navActive) {
-      window.gsap.from(".nav-img", {
-        opacity: 0,
-        xPercent: -100,
-        duration: 2,
-        ease: "power4.inOut",
-      });
+    if (!navActive && window.gsap) {
+      setTimeout(() => {
+        window.gsap.from(".nav-img", {
+          opacity: 0,
+          xPercent: -100,
+          duration: 2,
+          ease: "power4.inOut",
+        });
 
-      window.gsap.from(".nav-ul li a", {
-        opacity: 0,
-        skewY: 60,
-        yPercent: -360,
-        stagger: 0.2,
-        duration: 1,
-        ease: "easeIn",
-      });
+        window.gsap.from(".nav-ul li a", {
+          opacity: 0,
+          skewY: 60,
+          yPercent: -360,
+          stagger: 0.2,
+          duration: 1,
+          ease: "easeIn",
+        });
+      }, 100);
     }
   };
 
