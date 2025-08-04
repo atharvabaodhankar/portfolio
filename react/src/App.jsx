@@ -6,19 +6,14 @@ function App() {
   const [navActive, setNavActive] = useState(false)
 
   useEffect(() => {
-    // Wait for all libraries to load
-    const checkLibrariesLoaded = () => {
-      if (window.gsap && window.ScrollTrigger && window.Lenis && window.Swiper) {
-        // Register ScrollTrigger plugin
-        window.gsap.registerPlugin(window.ScrollTrigger);
-        initializeApp();
-      } else {
-        setTimeout(checkLibrariesLoaded, 100);
+    // Wait a bit for all scripts to load
+    setTimeout(() => {
+      if (!window.gsap || !window.ScrollTrigger || !window.Lenis || !window.Swiper) {
+        console.log('Libraries not loaded yet');
+        return;
       }
-    };
 
-    const initializeApp = () => {
-      // Initialize Lenis smooth scroll first
+      // EXACT COPY OF YOUR SCRIPT.JS
       const lenis = new window.Lenis({
         lerp: 0.05,
       });
@@ -29,116 +24,30 @@ function App() {
       }
       requestAnimationFrame(raf);
 
-      // Loader animation
-      const loadingAnimation = () => {
-        const tl = window.gsap.timeline({
-          onComplete: () => {
-            setTimeout(() => {
-              setIsLoading(false);
-            }, 500);
-          },
-        });
-        
-        tl.from(".loading", {
-          yPercent: 100,
-          ease: "power3.inOut",
-          duration: 1,
-        });
-        
-        tl.from(
-          ".loading-text h1 span",
-          {
-            duration: 0.6,
-            delay: -0.3,
-            y: 130,
-            skewY: 10,
-            stagger: 0.4,
-            ease: "Power3.easeOut",
-          },
-          "loader-same"
-        );
-        
-        tl.from(
-          ".loader-box",
-          {
-            rotate: -360,
-            scale: 4,
-            duration: 2,
-            ease: "ease",
-          },
-          "loader-same"
-        );
-      };
+      // Register ScrollTrigger
+      window.gsap.registerPlugin(window.ScrollTrigger);
 
-      const entranceAnimation = () => {
-        const tl = window.gsap.timeline();
-        tl.to(".loading", {
-          yPercent: -100,
-          duration: 1.25,
-          ease: "power4.inOut",
-        });
-      };
+      // Navbar
+      let lastScroll = 0;
+      window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll <= 0) {
+          document.body.classList.remove("scroll-down");
+        }
 
-      const heroLoad = () => {
-        const heroTl = window.gsap.timeline();
+        if (currentScroll > lastScroll && !document.body.classList.contains("scroll-down")) {
+          document.body.classList.add("scroll-down");
+        }
 
-        heroTl.from(
-          ".hero-img",
-          {
-            height: 0,
-            scale: 0.8,
-            ease: "elastic",
-            duration: 3,
-          },
-          "HeroH1H2"
-        );
-        heroTl.from(
-          ".hero h1",
-          {
-            skewY: -10,
-            delay: 1,
-            opacity: 0,
-          },
-          "HeroH1H2"
-        );
-        heroTl.from(
-          ".hero h2",
-          {
-            skewY: -10,
-            delay: 1.3,
-            opacity: 0,
-          },
-          "HeroH1H2"
-        );
-        heroTl.from(".hero p", {
-          y: 20,
-          opacity: 0,
-        });
-      };
+        if (currentScroll < lastScroll && document.body.classList.contains("scroll-down")) {
+          document.body.classList.remove("scroll-down");
+        }
 
-      const initializeAnimations = () => {
-        // Navbar scroll behavior
-        let lastScroll = 0;
-        const handleScroll = () => {
-          const currentScroll = window.pageYOffset;
-          if (currentScroll <= 0) {
-            document.body.classList.remove("scroll-down");
-          }
+        lastScroll = currentScroll;
+      });
 
-          if (currentScroll > lastScroll && !document.body.classList.contains("scroll-down")) {
-            document.body.classList.add("scroll-down");
-          }
-
-          if (currentScroll < lastScroll && document.body.classList.contains("scroll-down")) {
-            document.body.classList.remove("scroll-down");
-          }
-
-          lastScroll = currentScroll;
-        };
-
-        window.addEventListener("scroll", handleScroll);
-
-        // Marquee animation
+      // Marquee
+      function marquee() {
         let currentScroll = 0;
         let isScrollingDown = true;
         let arrows = document.querySelectorAll(".arrow");
@@ -153,7 +62,7 @@ function App() {
           .totalProgress(0.5);
         window.gsap.set(".marquee_inner", { xPercent: -50 });
 
-        const handleMarqueeScroll = () => {
+        window.addEventListener("scroll", () => {
           if (window.pageYOffset > currentScroll) {
             isScrollingDown = true;
           } else {
@@ -172,11 +81,11 @@ function App() {
           });
 
           currentScroll = window.pageYOffset;
-        };
+        });
+      }
 
-        window.addEventListener("scroll", handleMarqueeScroll);
-
-        // Skills section animation
+      // Skills
+      function skillsSection() {
         let skillsTl = window.gsap.timeline({
           scrollTrigger: {
             trigger: "#skills",
@@ -201,7 +110,13 @@ function App() {
         skillsTl.to("#firebase", { filter: "blur(0px)", opacity: 1 });
         skillsTl.to("#php", { filter: "blur(0px)", opacity: 1 });
 
-        // Skills section other animations
+        if (window.matchMedia("(min-width: 768px)").matches && window.Shery) {
+          window.Shery.imageEffect(".skills-img", {
+            style: 3,
+            preset: "./presets/wigglewobble.json",
+          });
+        }
+
         window.gsap.from(".skills-left h1", {
           opacity: 0,
           yPercent: -100,
@@ -214,7 +129,7 @@ function App() {
             scrub: 2,
           },
         });
-
+        
         window.gsap.from(".skills-img", {
           scale: 0.5,
           duration: 1.5,
@@ -227,9 +142,27 @@ function App() {
             scrub: 2,
           },
         });
+      }
 
-        // Created section animations
+      // Created
+      function createdSection() {
         if (window.matchMedia("(min-width: 768px)").matches) {
+          if (window.Shery) {
+            window.Shery.makeMagnet(".aboutme-img", {
+              ease: "cubic-bezier(0.23, 1, 0.320, 1)",
+              duration: 1,
+            });
+
+            if (window.Ferro) {
+              window.Ferro.mouseFollower(1, "12px", true, ["h1", ".nav-btn", ".hero-hover", ".ferro-c1 p", ".ferro-btn"], 3);
+            }
+
+            window.Shery.imageEffect(".created-img", {
+              style: 6,
+              preset: "./presets/wigglewobble.json",
+            });
+          }
+
           window.gsap.from(".created-img", {
             opacity: 0,
             xPercent: -150,
@@ -243,6 +176,7 @@ function App() {
               scrub: 2,
             },
           });
+          
           window.gsap.from(".created h1", {
             opacity: 0,
             xPercent: -100,
@@ -269,6 +203,7 @@ function App() {
               scrub: 2,
             },
           });
+          
           window.gsap.from(".created h1", {
             opacity: 0,
             y: 100,
@@ -282,8 +217,10 @@ function App() {
             },
           });
         }
+      }
 
-        // About me section animations
+      // Aboutme
+      function aboutmeSection() {
         let aboutMeTl = window.gsap.timeline({
           scrollTrigger: {
             trigger: "#aboutme",
@@ -312,8 +249,37 @@ function App() {
           skewX: 40,
           ease: "ease",
         });
+      }
 
-        // Projects section animations
+      // Swiper and Project section
+      function swiperSection() {
+        const swiper = new window.Swiper(".swiper", {
+          direction: "horizontal",
+          loop: false,
+          speed: 1500,
+          slidesPerView: 4,
+          spaceBetween: 60,
+          parallax: true,
+          centeredSlides: true,
+          effect: "coverflow",
+          coverflowEffect: {
+            rotate: 40,
+            slideShadows: true,
+          },
+          autoplay: {
+            delay: 2000,
+            pauseOnMouseEnter: true,
+          },
+          breakpoints: {
+            0: { slidesPerView: 1, spaceBetween: 60 },
+            600: { slidesPerView: 2, spaceBetween: 60 },
+            1000: { slidesPerView: 3, spaceBetween: 60 },
+            1400: { slidesPerView: 4, spaceBetween: 60 },
+            2300: { slidesPerView: 5, spaceBetween: 60 },
+            2900: { slidesPerView: 6, spaceBetween: 60 },
+          },
+        });
+        
         window.gsap.from(".projects-header h1", {
           opacity: 0,
           y: 100,
@@ -326,7 +292,7 @@ function App() {
             scrub: 2,
           },
         });
-
+        
         window.gsap.from(".project-article", {
           opacity: 0,
           y: 100,
@@ -339,8 +305,9 @@ function App() {
             scrub: 2,
           },
         });
+      }
 
-        // Work section animations
+      function projectSection() {
         if (window.matchMedia("(min-width: 768px)").matches) {
           window.gsap.fromTo(
             ".work-img img",
@@ -362,7 +329,7 @@ function App() {
             },
           });
         }
-
+        
         window.gsap.from(".work-left h2 , .work-left h1", {
           opacity: 0,
           stagger: 0.1,
@@ -376,7 +343,7 @@ function App() {
             scrub: 2,
           },
         });
-
+        
         window.gsap.from(".work-left ul li", {
           opacity: 0,
           stagger: 0.1,
@@ -389,8 +356,9 @@ function App() {
             scrub: 2,
           },
         });
+      }
 
-        // Footer animations
+      function footerSection() {
         window.gsap.from(".footer-left , .footer-right ", {
           yPercent: -100,
           opacity: 0.7,
@@ -416,8 +384,129 @@ function App() {
             end: "60% 80%",
           },
         });
+      }
 
-        // Ferro section animation
+      function loaderSection() {
+        function loadingAnimation() {
+          const tl = window.gsap.timeline({
+            onComplete: () => {
+              setTimeout(() => {
+                setIsLoading(false);
+              }, 500);
+            },
+          });
+          
+          tl.from(".loading", {
+            yPercent: 100,
+            ease: "power3.inOut",
+            duration: 1,
+          });
+          
+          tl.from(".loading-text h1 span", {
+            duration: 0.6,
+            delay: -0.3,
+            y: 130,
+            skewY: 10,
+            stagger: 0.4,
+            ease: "Power3.easeOut",
+          }, "loader-same");
+          
+          tl.from(".loader-box", {
+            rotate: -360,
+            scale: 4,
+            duration: 2,
+            ease: "ease",
+          }, "loader-same");
+        }
+
+        const entranceAnimation = () => {
+          const tl = window.gsap.timeline();
+          tl.to(".loading", {
+            yPercent: -100,
+            duration: 1.25,
+            ease: "power4.inOut",
+          });
+        };
+
+        const images = document.querySelectorAll("img");
+        let loadedCount = 0;
+        const minPreloaderTime = 2000;
+        let allImagesLoaded = false;
+
+        const handleImageLoad = () => {
+          loadedCount++;
+          if (loadedCount === images.length) {
+            allImagesLoaded = true;
+            checkAndRunEntranceAnimation();
+          }
+        };
+
+        const checkAndRunEntranceAnimation = () => {
+          if (allImagesLoaded && Date.now() - startTime >= minPreloaderTime) {
+            entranceAnimation();
+          }
+        };
+
+        loadingAnimation();
+        const startTime = Date.now();
+
+        setTimeout(() => {
+          if (allImagesLoaded) {
+            entranceAnimation();
+            window.gsap.to("#loader", {
+              yPercent: -100,
+              backgroundColor: "#EDECE7",
+              duration: 1.5,
+              ease: "power4.inOut",
+            });
+            setTimeout(heroLoad, 500);
+          }
+        }, minPreloaderTime);
+
+        for (const image of images) {
+          if (image.complete) {
+            handleImageLoad();
+          } else {
+            image.addEventListener("load", handleImageLoad);
+          }
+        }
+      }
+
+      function heroLoad() {
+        if (window.Shery) {
+          window.Shery.makeMagnet(".hero-img , .logo", {
+            ease: "cubic-bezier(0.23, 1, 0.320, 1)",
+            duration: 1,
+          });
+        }
+
+        const heroTl = window.gsap.timeline();
+        heroTl.from(".hero-img", {
+          height: 0,
+          scale: 0.8,
+          ease: "elastic",
+          duration: 3,
+        }, "HeroH1H2");
+        
+        heroTl.from(".hero h1", {
+          skewY: -10,
+          delay: 1,
+          opacity: 0,
+        }, "HeroH1H2");
+        
+        heroTl.from(".hero h2", {
+          skewY: -10,
+          delay: 1.3,
+          opacity: 0,
+        }, "HeroH1H2");
+        
+        heroTl.from(".hero p", {
+          y: 20,
+          opacity: 0,
+        });
+      }
+
+      function ferroSection() {
         window.gsap.to(".ferro-c1", {
           xPercent: -200,
           ease: "none",
@@ -431,149 +520,28 @@ function App() {
           },
         });
 
-        // Initialize Swiper
-        const swiper = new window.Swiper(".swiper", {
-          direction: "horizontal",
-          loop: false,
-          speed: 1500,
-          slidesPerView: 4,
-          spaceBetween: 60,
-          parallax: true,
-          centeredSlides: true,
-          effect: "coverflow",
-          coverflowEffect: {
-            rotate: 40,
-            slideShadows: true,
-          },
-          autoplay: {
-            delay: 2000,
-            pauseOnMouseEnter: true,
-          },
-          breakpoints: {
-            0: {
-              slidesPerView: 1,
-              spaceBetween: 60,
-            },
-            600: {
-              slidesPerView: 2,
-              spaceBetween: 60,
-            },
-            1000: {
-              slidesPerView: 3,
-              spaceBetween: 60,
-            },
-            1400: {
-              slidesPerView: 4,
-              spaceBetween: 60,
-            },
-            2300: {
-              slidesPerView: 5,
-              spaceBetween: 60,
-            },
-            2900: {
-              slidesPerView: 6,
-              spaceBetween: 60,
-            },
-          },
-        });
-
-        // Initialize other effects if available
-        if (window.Shery && window.matchMedia("(min-width: 768px)").matches) {
-          window.Shery.makeMagnet(".hero-img , .logo", {
-            ease: "cubic-bezier(0.23, 1, 0.320, 1)",
-            duration: 1,
-          });
-
-          window.Shery.makeMagnet(".aboutme-img", {
-            ease: "cubic-bezier(0.23, 1, 0.320, 1)",
-            duration: 1,
-          });
-
-          window.Shery.imageEffect(".skills-img", {
-            style: 3,
-            preset: "./presets/wigglewobble.json",
-          });
-
-          window.Shery.imageEffect(".created-img", {
-            style: 6,
-            preset: "./presets/wigglewobble.json",
-          });
-        }
-
         if (window.Ferro) {
-          window.Ferro.mouseFollower(1, "12px", true, ["h1", ".nav-btn", ".hero-hover", ".ferro-c1 p", ".ferro-btn"], 3);
           window.Ferro.button(".ferro-btn", 0.5, "ease");
         }
-
-        if (window.VanillaTilt) {
-          window.VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
-        }
-
-        return () => {
-          window.removeEventListener("scroll", handleScroll);
-          window.removeEventListener("scroll", handleMarqueeScroll);
-        };
-      };
-
-      loadingAnimation();
-      
-      const images = document.querySelectorAll("img");
-      let loadedCount = 0;
-      const minPreloaderTime = 2000;
-      let allImagesLoaded = false;
-
-      const handleImageLoad = () => {
-        loadedCount++;
-        if (loadedCount === images.length) {
-          allImagesLoaded = true;
-          checkAndRunEntranceAnimation();
-        }
-      };
-
-      const checkAndRunEntranceAnimation = () => {
-        if (allImagesLoaded && Date.now() - startTime >= minPreloaderTime) {
-          entranceAnimation();
-          window.gsap.to("#loader", {
-            yPercent: -100,
-            backgroundColor: "#EDECE7",
-            duration: 1.5,
-            ease: "power4.inOut",
-          });
-          setTimeout(() => {
-            heroLoad();
-            initializeAnimations();
-          }, 500);
-        }
-      };
-
-      const startTime = Date.now();
-
-      setTimeout(() => {
-        if (allImagesLoaded) {
-          entranceAnimation();
-          window.gsap.to("#loader", {
-            yPercent: -100,
-            backgroundColor: "#EDECE7",
-            duration: 1.5,
-            ease: "power4.inOut",
-          });
-          setTimeout(() => {
-            heroLoad();
-            initializeAnimations();
-          }, 500);
-        }
-      }, minPreloaderTime);
-
-      for (const image of images) {
-        if (image.complete) {
-          handleImageLoad();
-        } else {
-          image.addEventListener("load", handleImageLoad);
-        }
       }
-    };
 
-    checkLibrariesLoaded();
+      // Initialize VanillaTilt
+      if (window.VanillaTilt) {
+        window.VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+      }
+
+      // Function Calls - EXACTLY like your original
+      loaderSection();
+      marquee();
+      skillsSection();
+      createdSection();
+      swiperSection();
+      aboutmeSection();
+      projectSection();
+      footerSection();
+      ferroSection();
+
+    }, 1000); // Wait 1 second for all libraries to load
   }, []);
 
   const handleNavToggle = () => {
@@ -653,8 +621,8 @@ function App() {
           <div className="menu btn-underline non-hover" onClick={handleNavToggle}>
             Menu
           </div>
-        </div>
-        
+        </div> 
+       
         <section id="hero">
           <div className="hero">
             <h1 className="hero-hover">ATHARVA</h1>
@@ -726,8 +694,8 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
-        
+        </section>   
+     
         <section id="skills">
           <div className="skills-left">
             <h1>Skills & <br /> Expertise</h1>
@@ -766,8 +734,8 @@ function App() {
               TO <span>DESIGN</span>
             </h1>
           </div>
-        </section>     
-   
+        </section>
+        
         <section id="ferro">
           <div className="ferro-header">
             <h1>&nbsp;</h1>
@@ -793,8 +761,8 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
-        
+        </section>       
+ 
         <section id="projects">
           <div className="projects-header">
             <h1>MY ART</h1>
@@ -854,29 +822,6 @@ function App() {
                   <figure className="swiper-slide">
                     <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
                       data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/BusinessEvent.png" alt="business event" width="800" height="400" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Business Event
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        The Event Organizers
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          Business Event is a platform that helps you find the best event organizers for your business. We offer a range of services from event planning to event management. We also offer a range of events and activities to keep you entertained.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/BusinessEvent/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
                       <img src="/sites/rejouice.png" alt="rejouice" width="800" height="400" data-swiper-parallax="80"
                         data-swiper-parallax-duration="2000" />
                       <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
@@ -897,219 +842,12 @@ function App() {
                     </div>
                   </figure>
 
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/polystudi.png" alt="polystudi" width="800" height="400" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Polystudi
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Students Hub
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          Polystudi is more than just a website, it's a movement. We're passionate about empowering polytechnic students to achieve their academic dreams. So, what are you waiting for? Join the Polystudi fam, crank up your learning curve, and watch your potential explode!
-                        </p>
-                      </figcaption>
-                      <a href="https://polystudi.com" target="_blank" data-swiper-parallax="80"
-                        data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/cars.png" alt="cars" width="800" height="400" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Cars
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Luxury of car
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          Finding the Perfect Car Insurance Fit. Price is a big factor, but it's not the only one! We explore what matters when choosing car insurance. From comparing quotes to evaluating customer service, we'll help you find the company that protects your car and your peace of mind.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/cars/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/fips.png" alt="fips" width="800" height="400" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Fips
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Comfort of life
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          We craft furniture for lives well-lived. Comfort isn't a luxury, it's a necessity. That's why quality is our obsession. Handcrafted with meticulous detail, our furniture becomes an extension of your home, offering lasting comfort and timeless style.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/fips/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/TrainingStudio.png" alt="training studio" width="800" height="400"
-                        data-swiper-parallax="80" data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Training Studio
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Fit and Strong
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          Unleash your potential. Our gym makes it simple to achieve your fitness goals. We offer a supportive environment with everything you need to WORK HARDER and GET STRONGER - all conveniently at your fingertips.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/trainingstudio/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/glassm5.png" alt="glass m5" width="800" height="400" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Glass M5
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Transparency of glass
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          Welcome to a world of transparency in corporate governance. glassM5 leverages the power of glassmorphism design to create a clear and open environment. Our team of experts is dedicated to empowering businesses with the tools and knowledge they need to build strong governance practices.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/GlassM5-/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/cofffee.png" alt="coffee" width="800" height="400" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Coffee
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Focus on Ambiance
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          Cafe & Restaurant Est.2023: Your haven for delicious eats & coffee. Savor hand-crafted dishes and barista-brewed beverages in our warm and inviting atmosphere. From mouthwatering brunch options to perfectly roasted coffee, we fuel your day with flavor.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/cofffee/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/elvo.png" alt="elvo" width="800" height="400" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Elvo
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Built for you
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          Elvo Construction: Built by me, built for you. This website is more than just code and design - it's a testament to the dedication and expertise that goes into every Elvo project. Since 1998, I've poured my passion for construction into building dreams, and now I'm making it easier than ever for you to be a part of that process.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/elvo/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/dotcom.png" alt="dotcom" width="800" height="400" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        DotCom
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Ignite your brand
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          Ignite your brand with Creative Agency. Our passionate team transforms brands with creative muscle - crafting captivating stories and designing cutting-edge digital experiences. We offer a full suite of services, from user-friendly websites to strategic marketing campaigns. Let's partner to unlock your brand's true potential and create something remarkable together.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/dotcom/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
-                  <figure className="swiper-slide">
-                    <div className="cardPopout" data-swiper-parallax="30" data-swiper-parallax-scale="0.9"
-                      data-swiper-parallax-opacity="0.8" data-swiper-parallax-duration="1000">
-                      <img src="/sites/lendo.png" alt="lendo" width="400" height="200" data-swiper-parallax="80"
-                        data-swiper-parallax-duration="2000" />
-                      <h2 className="title" data-swiper-parallax="80" data-swiper-parallax-duration="1000">
-                        Lendo
-                      </h2>
-                      <h4 className="subtitle" data-swiper-parallax="80" data-swiper-parallax-duration="1500">
-                        Focus on what matters
-                      </h4>
-                      <figcaption data-swiper-parallax="80" data-swiper-parallax-duration="1250">
-                        <p>
-                          We're a leading provider of top-tier technology and exceptional service, empowering companies to reach their full potential. Our comprehensive solutions encompass cutting-edge technology to streamline operations and a dedicated team committed to exceeding your expectations. Partner with us and unlock a world of possibilities.
-                        </p>
-                      </figcaption>
-                      <a href="https://atharvabaodhankar.github.io/lendo/" target="_blank" title="Visit Now"
-                        data-swiper-parallax="80" data-swiper-parallax-opacity="0.2" data-swiper-parallax-duration="1750">
-                        Visit Now
-                      </a>
-                    </div>
-                  </figure>
-
                 </div>
               </section>
             </section>
           </article>
-        </section>
-        
+        </section>     
+   
         <section id="work">
           <div className="work-left">
             <h2>Atharva Baodhankar</h2>
