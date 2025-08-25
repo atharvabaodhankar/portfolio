@@ -58,6 +58,8 @@ function initializePortfolio() {
   }
   requestAnimationFrame(raf);
 
+  Ferro.mouseFollower(1, "12px", true, ["h1", ".nav-btn" , ".hero-hover" , ".ferro-c1 p",".ferro-btn",".menu"], 3);
+
   // Navbar functionality
   const menu = document.querySelector(".menu");
   var navbar = document.querySelector(".navbar");
