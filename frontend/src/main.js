@@ -123,6 +123,8 @@ function initializePortfolio() {
     });
   });
 
+  Ferro.button(".ferro-btn", 0.5, "ease");
+
   // Initialize all sections
   marquee();
   skillsSection();

@@ -794,7 +794,10 @@ p {
     font-size: 3em;
     font-family: FontStyleNew;
     color: #000;
+    border-radius: 0 !important;
+    background-color: transparent !important;
     border-bottom: 2px solid #000;
+    width: auto !important;
 }
 
 .ferro-btn span{
